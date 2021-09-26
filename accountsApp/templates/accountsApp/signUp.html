@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block title %}Register{% endblock title %}
+{% block body %}
+{%load static%}
+
+
+<div class="container-sm">
+<div class="row">
+    <div class="col-md-5"><img class="img-fluid" src="{%static 'accountsApp/Login-rafiki.svg'%}" alt="login"></div>
+<div class="col-md-6">
+    <form class="row g-3" method="POST" action="{% url 'accountsApp:signUp' %}">
+        {% csrf_token %}
+
+        <div class="col-md-5">
+            <label for="id_username" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend3">@</span>
+             <input type="text" class="form-control {%if form.username.errors %}is-invalid{%endif%}"
+              name="username" maxlength="150" autofocus="" id="id_username" placeholder="Your username"
+              required value="{% if form.username.value%} {{form.username.value}} {%endif%}">
+
+              <div id="id_username" class="invalid-feedback">
+              {{form.username.errors}}
+              </div>
+            </div>
+          </div>
+     
+       <div class="col-md-5">
+         <label for="id_email" class="form-label">Email</label>
+         <input type="email" name="email" class="form-control {% if form.email.errors %}is-invalid{%endif%}"
+          id="id_email" placeholder="Email" required="" value="{%if form.email.value%}{{form.email.value}}{%endif%}">
+         <div class="invalid-feedback">
+          {{form.email.errors}}
+         </div>
+       </div>
+        <div class="row g-3">
+        <div class="col-md-5">
+            <label for="id_password1" class="form-label">Password</label>
+            <input class="form-control {% if form.password1.errors %}is-invalid{%endif%}" type="password" name="password1" autocomplete="new-password"
+             required="" id="id_password1" placeholder="Enter your Password">
+            
+            <div class="invalid-feedback">
+              {{form.password1.errors}}
+            </div>
+        </div>
+         <div class="col-md-5">
+            <label for="id_password2" class="form-label">Password config</label>
+            <input class="form-control {% if form.password2.errors %}is-invalid{%endif%}" type="password" name="password2" autocomplete="new-password"
+             required="" id="id_password2" placeholder="Confirmation password">
+
+            <div class="invalid-feedback">
+              {{form.password2.errors}}
+            </div>
+         </div>
+        </div> <!--End row-->
+        <div class="row g-1">
+          <p><small class="text-muted">
+            <ul>
+              <li>Your password can’t be too similar to your other personal information.</li>
+              <li>Your password must contain at least 8 characters. </li>
+                <li>Your password can’t be a commonly used password.</li>
+                <li>Your password can’t be entirely numeric.</li>
+            </ul>
+              </small></p>
+        </div>
+       
+        
+       
+     <div class="row g-1">
+      <small class="text-muted">already have an account? <a href="{% url 'accountsApp:login' %}">Login</a></small>
+          </div>
+          <div class="row g-1">
+            <div class="col">
+            <small class="text-muted">Wanna continue with google?! (SOON!)  </small><a href="#" class="link-secondary"><img class="img-fluid" src="{% static 'accountsApp/icons8-gmail.svg' %}" alt="email"></a>
+          </div></div>
+          <div class="row g-1">
+       <div class="col-12">
+         <button class="btn btn-primary" type="submit">Sign UP</button>
+       </div>
+    </div>
+     </form>
+</div> <!--end col-sm-7-->
+
+  
+
+
+
+
+    
+    
+    </div> <!--end row-->
+  </div>  <!--end container -->
+{% endblock body %}
