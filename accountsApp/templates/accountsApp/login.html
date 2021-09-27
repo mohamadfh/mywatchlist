@@ -1,6 +1,6 @@
 {%extends 'base.html'%}{%block title%}Login{%endblock title%}
 {% load static %}
- {%block body%}
+ {%block content%}
 {%if massages%}
 {% for massage in massages %}
 <div class="alert alert-{% if message.tags %}{{massage.tags}}{%endif%}" role="alert">
@@ -11,9 +11,10 @@
   
 <div class="container-sm">
   <div class="row">
-    <div class="col-md-5"><img src="{% static 'accountsApp/Authentication-rafiki.svg' %}" alt="login" class="img-fluid"></div>
-  <div class="col-md-6">
-<form method="POST"  action="{% url 'accountsApp:login' %}" class="row g-3">
+    <div class="col-md-6 center login-page"><img class="img-fluid" src="{% static 'accountsApp/login.gif' %}" alt="Drive-in movie theater-amico"></div>
+
+  <div class="col-md-6 center">
+<form method="POST"  action="{% url 'login' %}" class="row g-3">
 {% csrf_token %}
 
 
@@ -33,6 +34,7 @@
       </div>
     </div>
   </div>
+  
 </div>
 <div class="row g-4">
 <div class="col-md-7">
@@ -49,10 +51,10 @@
 </div>
 </div>
 <div class="row g-3">
-  <small class="text-muted">Have'nt Sign Up Yet? <a href="{% url 'accountsApp:signUp' %}">Sign Up</a></small>
+  <small class="text-muted">Have'nt Sign Up Yet? <a href="{% url 'signUp' %}">Sign Up</a></small>
       </div>
       <div class="row g-3">
-        <small class="text-muted">Forget your password? <a href="#">Forgot!</a></small>
+         <small class="text-muted"><a href="{% url 'password_reset' %}">Forget your password or username?</a></small>
             </div>
       <div class="row g-1">
         <div class="col">
@@ -67,22 +69,28 @@
         <button class="btn btn-primary" type="submit">Login</button>
  
   {%endif%}
+  
   </div>
 </form>
 {%if user.is_authenticated%}
 <div class="row"> 
 <div class="col-sm-2">
-  <form class="row g-2" action="{% url 'accountsApp:logOut' %}" method="POST">
+  <form class="row g-2" action="{% url 'logOut' %}" method="POST">
     {% csrf_token %}
    <button class="btn btn-primary" type="submit">Logout</button>
  </form>
-</div></div>
  {%endif%}
 </div>
 
 
+</div>
+
+ 
+ 
+</div>
+
+
   </div>
-  
   
   </div>
 </div>
@@ -92,4 +100,4 @@
 
 
 
- {% endblock body %}
+ {% endblock content %}

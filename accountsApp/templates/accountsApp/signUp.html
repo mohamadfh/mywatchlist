@@ -1,13 +1,13 @@
 {% extends 'base.html' %} {% block title %}Register{% endblock title %}
-{% block body %}
+{% block content %}
 {%load static%}
 
 
 <div class="container-sm">
 <div class="row">
-    <div class="col-md-5"><img class="img-fluid" src="{%static 'accountsApp/Login-rafiki.svg'%}" alt="login"></div>
+    <div class="col-md-6 center"><img class="img-fluid" src="{%static 'accountsApp/signUp.gif'%}" alt="login"></div>
 <div class="col-md-6">
-    <form class="row g-3" method="POST" action="{% url 'accountsApp:signUp' %}">
+    <form class="row g-3" method="POST" action="{% url 'signUp' %}">
         {% csrf_token %}
 
         <div class="col-md-5">
@@ -66,7 +66,7 @@
         
        
      <div class="row g-1">
-      <small class="text-muted">already have an account? <a href="{% url 'accountsApp:login' %}">Login</a></small>
+      <small class="text-muted">already have an account? <a href="{% url 'login' %}">Login</a></small>
           </div>
           <div class="row g-1">
             <div class="col">
@@ -89,4 +89,4 @@
     
     </div> <!--end row-->
   </div>  <!--end container -->
-{% endblock body %}
+{% endblock content %}
