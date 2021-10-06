@@ -16,8 +16,13 @@ field_search.addEventListener('keyup',function(event){
 });
 
 btn_search.addEventListener('click',function(){
-        // Call Send_Request FUNCTION
 
+        
+
+
+
+        // Call Send_Request FUNCTION
+        
         Send_Request(field_search.value)
         
        // Send_Request('shutter island')
@@ -30,6 +35,9 @@ btn_search.addEventListener('click',function(){
 //  1
 function Send_Request(query,page=1){
     if (query!=''){
+        //hide others
+        othersContainer.style.display = 'none'
+        bestResultContainer.style.display = 'none'
         loadingGif.style.display = 'block'
     // CREATE A XMLRquest and OPEN IT
     
@@ -38,8 +46,12 @@ function Send_Request(query,page=1){
 
     // AFTER IT GOT LOAD DO THIS
     request.onload = function(){
+
+        othersContainer.style.display = 'none'
+        bestResultContainer.style.display = 'block'
+        
         loadingGif.style.display = 'none'
-        if (request.status>=200 && request.status<400){
+                if (request.status>=200 && request.status<400){
             let data = JSON.parse(request.responseText)
             console.log(data)
 
@@ -48,6 +60,8 @@ function Send_Request(query,page=1){
 
             // IF there was no result 
             if(data.results.length==0){
+                bestResultContainer.style.display = 'none'
+                othersContainer.style.display = 'block'
                 othersContainer.innerHTML = `
                 <div class="row row-col-auto">
                 <div class="center-btn" style="margin: 2em;align-self:center;">
@@ -65,6 +79,7 @@ function Send_Request(query,page=1){
         }//END IFsrc="Oops! 404 Error with a broken robot-rafiki.svg"
         else{
             loadingGif.style.display = 'none'
+            othersContainer.style.display = 'block'
             othersContainer.innerHTML =  `
             <div class="row row-col-auto">
             <div class="center-btn" style="margin: 2em;align-self:center;">
@@ -90,6 +105,7 @@ request.onerror = function(){
     
     // Show Error LATER*******
     loadingGif.style.display = 'none'
+    othersContainer.style.display = 'block'
     othersContainer.innerHTML = `
     <div class="row row-col-auto">
     <div class="center-btn" style="margin: 2em;align-self:center;">
@@ -190,13 +206,3 @@ window.scrollTo(0,0)
 }
 
 
-// function searchNavbar(){
-// let btn_navbar = document.getElementById('btn-navbar');
-// let field_search_navbar = document.getElementById('search-field-navbar');
-// field_search.value = field_search_navbar.value;
-// Send_Request(field_search.value)
-
-
-
-
-// }

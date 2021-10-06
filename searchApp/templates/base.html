@@ -47,7 +47,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Discover</a>
+              <a class="nav-link" href="{% url 'search' %}">Discover</a>
             </li>
             <li class="nav-item">
               <a
@@ -78,8 +78,8 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarScrollingDropdown"
               >
-                <li><a class="dropdown-item" href="#">SignUp</a></li>
-                <li><a class="dropdown-item" href="#">Login</a></li>
+                <li><a class="dropdown-item" href="{% url 'signUp' %}">SignUp</a></li>
+                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
 
                 {% if user.is_authenticated %}
                 <li><hr class="dropdown-divider" /></li>
@@ -106,7 +106,7 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button onclick="searchNavbar()" id="btn-navbar" class="btn btn-outline-success" type="button">
+            <button id="btn-navbar" class="btn btn-outline-success" type="button">
               Search
             </button>
           </form>
@@ -119,5 +119,6 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="{% static 'js/search_navbar.js' %}"></script>
   </body>
 </html>
