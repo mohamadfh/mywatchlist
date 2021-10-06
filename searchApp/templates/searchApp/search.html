@@ -1,1 +1,140 @@
-{% extends 'base.html' %} {% block body %}sdaf{% endblock body %}
+{% extends 'base.html' %}
+{% block title %}Search{% endblock title %}
+{% load static %}
+
+{% block content %}
+{% verbatim %}
+
+<div class="container">
+    <div class="col-md-10 center-card">
+    <div class="card-body row no-gutters align-items-center center-card">
+      <div class="col-auto">
+        <i class="fas fa-search h4 text-body"></i>
+      </div>
+
+      <div class="col">
+        <input
+          id="search-field"
+          class="form-control form-control-lg form-control-borderless"
+          type="text"
+          spellcheck="true"
+          placeholder="Search title"
+        />
+      </div>
+      <!--end of col-->
+      <div class="col-auto">
+        <button id="btn-search" class="btn btn-lg btn-primary" type="button">
+          Search
+        </button>
+      </div>
+      <!--end of col-->
+    </div>
+  </div> <!--End Col-->
+
+    <div id="loading-gif" style="display: none">
+      <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <span>Loading</span>
+      </div>
+    </div>
+    <div id="best-result"></div>
+    <div id="others"></div>
+  </div>
+  {% endverbatim %}
+   
+  <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
+  
+ 
+  <script id="titleTemplate" type="text/x-handlebars-template">
+    
+    {% verbatim %}
+    <div class="row row-col-auto">
+    {{#each results}}
+      {{#if poster_path}}
+      <div class="col-md-6">
+        <div class="card mb-3 center-card" style="max-width: 600px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+               class="img-fluid rounded-start center" alt="{{title}}" loading="lazy">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                {{#if media_type}}
+                <img class="media-type" src="{{getMedia_type media_type}}" alt="...">
+                {{/if}}
+                
+                <h5 class="card-title">
+                  {{#if title}}
+                  {{title}}
+                  {{else}}
+                  {{name}}
+                  {{/if}}
+                   <small class="text-muted">{{#if release_date}}{{getYear release_date}}{{/if}}</small>
+                </h5>
+                {{#if first_air_date}}
+                <p class="card-text"><small class="text-muted">First Episode {{getYear first_air_date}}</small></p>
+                {{/if}}
+                {{#if vote_average}}
+                <p class="card-text"><small class="text-muted">Rate : {{vote_average}}</small></p>
+                {{/if}}
+                <p class="card-text"><small class="lora-font">{{getSnippet overview}}</small></p>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="{{id}}">
+                  <label class="form-check-label" for="{{id}}">Watched</label>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault">Bookmarked</label>
+                </div>
+                <!-- if bookmark is on show select / by default it will select default list -->
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                  <option selected>Default List</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    {{/each}}
+    </div> <!--End of Row-->
+
+    <!-- If there was more pages -->
+    
+     
+      <div class="row">
+        <div style="margin: 2em;">
+        <div class="col-md-6 center-btn">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          {{#if (isThereLastPage page)}}
+          <!-- Perevius page -->
+          <button onclick='getLastPage( "{{page}}" )' type="button" class="btn btn-primary">Previous</button>
+          {{/if}}
+          {{#if (getPages total_pages page)}} 
+          <label class="btn btn-outline-primary">Page {{page}}</label>
+
+          <!-- Next page -->
+          <button onclick='getNextPage( "{{page}}")' type="button" class="btn btn-primary">Next</button>
+        </div>
+      </div> <!--End col-->
+   </div>
+   </div> <!--End of Row-->
+  
+    {{/if}}
+
+  </script>
+  {% endverbatim %}
+  <script src="{% static 'js/search.js' %}"></script>
+  
+  
+
+{% endblock content %}

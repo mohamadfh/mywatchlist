@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'searchApp.apps.SearchappConfig',
     'accountsApp',
+    'titleApp',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

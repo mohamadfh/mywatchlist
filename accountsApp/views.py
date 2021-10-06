@@ -5,6 +5,8 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth import views as auth_views
+from titleApp.models import Lists
+from django.contrib.auth.models import User
 
 
 def loginView(request):
@@ -33,8 +35,12 @@ def signUpView(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-
             messages.success(request, f'{user} has been created!')
+
+            # Create a defult list for new comers
+            list_obj = Lists.objects.create(
+                title='Defalut List', user=User.objects.get(username=user))
+            list_obj.save()
 
             return redirect('/account/')
         else:
