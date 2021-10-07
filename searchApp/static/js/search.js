@@ -5,7 +5,6 @@ let othersContainer = document.getElementById('others')
 let APIKey = 'b807e5f9454227525cea99c772a74b7d'
 let loadingGif = document.getElementById('loading-gif')
 
-
 field_search.addEventListener('keyup',function(event){
    
     if (event.key === 'Enter'){
@@ -15,20 +14,19 @@ field_search.addEventListener('keyup',function(event){
     }
 });
 
+field_search.addEventListener('input',function(event){
+    btn_search.click();
+
+});
+
 btn_search.addEventListener('click',function(){
-
-        
-
-
 
         // Call Send_Request FUNCTION
         
         Send_Request(field_search.value)
         
        // Send_Request('shutter island')
-
-       
-    
+  
 });
 
 
@@ -203,6 +201,9 @@ function getLastPage(data){
     current_page--;
 Send_Request(field_search.value,current_page)
 window.scrollTo(0,0)
-}
+};
+
+
+
 
 

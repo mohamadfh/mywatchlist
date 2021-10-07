@@ -1,13 +1,7 @@
 {%extends 'base.html'%}{%block title%}Login{%endblock title%}
 {% load static %}
  {%block content%}
-{%if massages%}
-{% for massage in massages %}
-<div class="alert alert-{% if message.tags %}{{massage.tags}}{%endif%}" role="alert">
-   {{massage}}
-  </div> 
-{%endfor%}
-{%endif%}
+
   
 <div class="container-sm">
   <div class="row">
