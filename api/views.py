@@ -1,0 +1,59 @@
+from django.http.response import JsonResponse
+from django.shortcuts import render
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from titleApp.models import Lists, TitleMovie
+from .serializer import TitleMovieSerializer
+from django.contrib import messages
+
+
+@api_view(['GET'])
+def apiTest(request):
+    api_urls = {
+        'get list of all movie': 'all-movies/',
+        'create': 'create-movie/',
+        'isThereMovie': 'istheremovie/<id>'
+
+    }
+    return Response(api_urls)
+
+
+@api_view(['GET'])
+def movieList(request):
+    user = request.user
+    movies = TitleMovie.objects.filter(user=user)
+    serializer = TitleMovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def movieCreate(request):
+    serializer = TitleMovieSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def movieUpdate(request, movieDB_id):
+    movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+    # you need to rewrite whole object in frontEnd and update part in which you want to change
+    serializer = TitleMovieSerializer(instance=movie, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        messages.info(request, f'{movie} Has been updated')
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def isThereMovie(request, movieDB_id):
+    json = {}
+    try:
+        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        json['isThereMovie'] = True
+        print(f'{movie} The movie was existed')
+    except:
+        json['isThereMovie'] = False
+        print('The movie didnt created Yet!!')
+    return Response(json)

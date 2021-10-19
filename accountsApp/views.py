@@ -38,9 +38,10 @@ def signUpView(request):
             messages.success(request, f'{user} has been created!')
 
             # Create a defult list for new comers
-            list_obj = Lists.objects.create(
-                title='Defalut List', user=User.objects.get(username=user))
-            list_obj.save()
+            for genre in ['My list', 'Anime', 'Classic', 'Romance', 'My Fave']:
+                list_obj = Lists.objects.create(
+                    title=genre, user=User.objects.get(username=user))
+                list_obj.save()
 
             return redirect('/account/')
         else:

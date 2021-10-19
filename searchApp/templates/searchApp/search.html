@@ -66,8 +66,12 @@
         <div class="card mb-3 center-card" style="max-width: 700px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+              <a  target="_blank" href="{{getDetailUrl media_type id}}">
+              
+                <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
                class="img-fluid rounded-start center" alt="{{title}}" loading="lazy">
+              
+               </a>
             </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -90,30 +94,30 @@
                 <p class="card-text"><small class="text-muted">Rate : {{vote_average}}</small></p>
                 {{/if}}
                 <p class="card-text"><small class="lora-font">{{getSnippet overview}}</small></p>
-                <div class="form-check form-switch">
+               
                   
                   {%endverbatim%}
                   <!-- SNED WATCHED INFO -->
-                  <form id="w-form" >
-                    {% csrf_token %}
-                   
+                <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" id="id_watched"> 
-                  
-                  </form>
-
                   <label class="form-check-label">Watched</label>
                 </div>
+
+                
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox">
+                  <input class="form-check-input" type="checkbox" id="id_bookmarked">
                   <label class="form-check-label">Bookmarked</label>
+                  
                 </div>
-                <!-- if bookmark is on show select / by default it will select default list -->
+              
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                  <option selected>Default List</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                   {% for list in lists %}
+                    <option value="{{list.title}}">{{list.title}}</option>
+                  {% endfor %}
                 </select>
+              
+                <!-- if bookmark is on show select / by default it will select default list -->
+                
                 {%verbatim%}
               </div>
             </div>
@@ -151,6 +155,6 @@
   {% endverbatim %}
   <script src="{% static 'js/search.js' %}"></script>
   <script src="{% static 'js/ajax_add.js' %}" ></script>
-  
+  <script src="{% static 'api/getPost.js' %}"></script>
 
 {% endblock content %}

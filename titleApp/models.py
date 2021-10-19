@@ -22,17 +22,22 @@ class Lists(models.Model):
         ('9', 'Sad theme'),
         ('10', 'Lonely theme')
     ]
-    theme = models.CharField(max_length=2, choices=THEME_CHOICES)
+    theme = models.CharField(max_length=2, choices=THEME_CHOICES, default='1')
 
     def __str__(self):
         return self.title
 
 
 class TitleMovie(models.Model):
-    title_movie = models.CharField(max_length=200)
+    title_movie = models.CharField(max_length=200, blank=True, null=True)
     movieDB_id = models.IntegerField(blank=True, null=True)
     imdb_id = models.IntegerField(blank=True, null=True)
     watched = models.BooleanField(default=False)
     bookmark = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
     list_user = models.ForeignKey(Lists, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['date_added']

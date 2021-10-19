@@ -185,6 +185,22 @@ return lastPage;
 });
 
 
+Handlebars.registerHelper('getDetailUrl',function(media_type,id){
+let url = 'detail/'
+if (media_type=='movie'){
+    url += 'm/' + id
+}
+else{
+if(media_type=='tv'){
+    url += 'tv/' + id
+}
+}
+
+    return url
+})
+
+
+
 
 
 function getNextPage(data){

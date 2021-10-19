@@ -5,7 +5,7 @@
 
 <div class="container-sm">
 <div class="row">
-    <div class="col-md-6 center"><img class="img-fluid" src="{%static 'accountsApp/signUp.gif'%}" alt="login"></div>
+    <div class="col-md-5 center"><img class="img-fluid" src="{%static 'accountsApp/signUp.gif'%}" alt="login"></div>
 <div class="col-md-6">
     <form class="row g-3" method="POST" action="{% url 'signUp' %}">
         {% csrf_token %}
@@ -56,9 +56,9 @@
           <p><small class="text-muted">
             <ul>
               <li>Your password can’t be too similar to your other personal information.</li>
-              <li>Your password must contain at least 8 characters. </li>
-                <li>Your password can’t be a commonly used password.</li>
-                <li>Your password can’t be entirely numeric.</li>
+              <li>Must contain at least 8 characters. </li>
+                <li>Can’t be a commonly used password.</li>
+                <li>Can’t be entirely numeric.</li>
             </ul>
               </small></p>
         </div>
@@ -74,7 +74,7 @@
           </div>
           <div class="row g-1">
             <div class="col">
-            <small class="text-muted">Wanna continue with google?! (SOON!)  </small><a href="#" class="link-secondary"><img class="img-fluid" src="{% static 'accountsApp/icons8-gmail.svg' %}" alt="email"></a>
+            <small class="text-muted">Continue with Telegram <strong>(Recommended)</strong>  </small><a href="#" class="link-secondary"><img class="img-fluid" src="{% static 'accountsApp/telegram.svg' %}" alt="telegram"></a>
           </div>{%endif%}</div>
           <div class="row g-1">
        <div class="col-12">
@@ -100,4 +100,12 @@
     
     </div> <!--end row-->
   </div>  <!--end container -->
+
+
+  <!-- <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="eamirhWatchListbot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+<script type="text/javascript">
+  function onTelegramAuth(user) {
+    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+  }
+</script> -->
 {% endblock content %}
