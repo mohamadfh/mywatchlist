@@ -4,6 +4,31 @@ let bestResultContainer = document.getElementById('best-result')
 let othersContainer = document.getElementById('others')
 let APIKey = 'b807e5f9454227525cea99c772a74b7d'
 let loadingGif = document.getElementById('loading-gif')
+const BASE_URL = 'http://127.0.0.1:8000/api/'
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+
+
+
+
+
 
 field_search.addEventListener('keyup',function(event){
    
@@ -198,6 +223,108 @@ if(media_type=='tv'){
 
     return url
 })
+
+let ids = []
+Handlebars.registerHelper('getInfo',function(movieDB_id,title){
+    
+    
+    let req = new XMLHttpRequest();
+    req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
+    req.onload = function(){
+
+        ids.push(movieDB_id)
+   
+        if (req.status>=200 && req.status<400){
+            let data = JSON.parse(req.responseText)
+           console.log(data)
+           let isMovieExist = data.isThereMovie
+           if (isMovieExist){
+               movie = data.object
+               if (movie.watched){
+                document.getElementById('watched-'+movieDB_id).checked = true;
+               } 
+               if(movie.bookmark){
+                document.getElementById('bookmark-'+movieDB_id).checked = true;
+
+               }
+           }
+           else {
+               // console.log('movie was not in DataBase')
+           }
+            
+        }
+    
+    
+    else{
+        console.log('Unable to connect to server!')
+    }
+    }
+    req.send()
+    return ''
+})
+
+// $.when(Send_Request(),renderHTML).then(
+
+// function(){
+//     console.log(ids)
+// }
+    
+//     )
+
+
+function updateInfo(movieDB_id,name){
+    let req = new XMLHttpRequest();
+    req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
+    req.onload = function(){
+        if (req.status>=200 && req.status<400){
+            let data = JSON.parse(req.responseText)
+           let isMovieExist = data.isThereMovie
+           if (isMovieExist){
+               movie = data.object
+               if (movie.watched){
+                document.getElementById('watched-'+movieDB_id).checked = true;
+               } 
+               if(movie.bookmark){
+                document.getElementById('bookmark-'+movieDB_id).checked = true;
+
+               }
+           }
+           // if movie does not exist create it
+           else {
+               
+                console.log('movie was not in DataBase')
+                url = BASE_URL + 'create-movie/'
+                fetch(url, {
+                    method:'POST',
+                    headers:{
+                        'Content-type':'application/json',
+                        'X-CSRFToken':csrftoken,
+                    },
+                    body:JSON.stringify({'movieDB_id':movieDB_id,'title_movie':name,
+                'watched':document.getElementById('watched-'+movieDB_id).checked,
+            'bookmark':document.getElementById('bookmark-'+movieDB_id).checked})
+    }
+    )
+    console.log('MOVIE ADDED')
+           }
+            
+        }
+    
+    
+    else{
+        console.log('Unable to connect to server!')
+    }
+    }
+    req.send()
+
+
+    
+}
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from titleApp.models import Lists
 import requests
+from django.contrib.auth.decorators import login_required
 
 API_KEY = 'b807e5f9454227525cea99c772a74b7d'
 

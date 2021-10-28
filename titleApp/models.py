@@ -35,7 +35,8 @@ class TitleMovie(models.Model):
     watched = models.BooleanField(default=False)
     bookmark = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True)
-    list_user = models.ForeignKey(Lists, on_delete=models.CASCADE)
+    list_user = models.ForeignKey(
+        Lists, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
 

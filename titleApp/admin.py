@@ -11,7 +11,7 @@ class ListsAdmin(admin.ModelAdmin):
 
 class TitleMovieAdmin(admin.ModelAdmin):
     list_display = ['title_movie', 'list_user',
-                    'watched', 'bookmark', 'date_added']
+                    'watched', 'bookmark', 'date_added', 'movieDB_id']
 
 
 admin.site.register(Lists, ListsAdmin)

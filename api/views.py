@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from titleApp.models import Lists, TitleMovie
 from .serializer import TitleMovieSerializer
 from django.contrib import messages
+from rest_framework import status
 
 
 @api_view(['GET'])
@@ -24,14 +25,6 @@ def movieList(request):
     user = request.user
     movies = TitleMovie.objects.filter(user=user)
     serializer = TitleMovieSerializer(movies, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def movieCreate(request):
-    serializer = TitleMovieSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
     return Response(serializer.data)
 
 
@@ -57,3 +50,28 @@ def isThereMovie(request, movieDB_id):
         json['isThereMovie'] = False
         print('The movie didnt created Yet!!')
     return Response(json)
+
+
+@api_view(['GET'])
+def getMovieInfo(request, movieDB_id):
+    json = {}
+    try:
+        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        serializer = TitleMovieSerializer(movie)
+        json['isThereMovie'] = True
+        json['object'] = serializer.data
+
+    except:
+        json['isThereMovie'] = False
+
+    return Response(json)
+
+
+@api_view(['POST'])
+def movieCreate(request):
+    if request.method == 'POST':
+        serializer = TitleMovieSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

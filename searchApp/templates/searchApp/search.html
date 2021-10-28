@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Search{% endblock title %}
 {% load static %}
-
+{% load getInfoTag %}
 {% block header %}
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -96,26 +96,30 @@
                 <p class="card-text"><small class="lora-font">{{getSnippet overview}}</small></p>
                
                   
-                  {%endverbatim%}
+                 
                   <!-- SNED WATCHED INFO -->
+                  
+                {{getInfo id title}}  
+
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="id_watched"> 
+                  <input class="form-check-input" type="checkbox" id="watched-{{id}}"> 
                   <label class="form-check-label">Watched</label>
                 </div>
-
+                
+                
+              
+            
                 
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="id_bookmarked">
+                  <input class="form-check-input" type="checkbox" id="bookmark-{{id}}">
                   <label class="form-check-label">Bookmarked</label>
-                  
                 </div>
+
+
+ {%endverbatim%}
               
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                   {% for list in lists %}
-                    <option value="{{list.title}}">{{list.title}}</option>
-                  {% endfor %}
-                </select>
               
+                
                 <!-- if bookmark is on show select / by default it will select default list -->
                 
                 {%verbatim%}
