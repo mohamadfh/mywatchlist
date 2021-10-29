@@ -224,19 +224,21 @@ if(media_type=='tv'){
     return url
 })
 
-let ids = []
-Handlebars.registerHelper('getInfo',function(movieDB_id,title){
+
+
+Handlebars.registerHelper('getInfo',getInfoHandelbar)
+function getInfoHandelbar(movieDB_id,title){
     
     
     let req = new XMLHttpRequest();
     req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
     req.onload = function(){
-
-        ids.push(movieDB_id)
+        //append checkboxs
+        
    
         if (req.status>=200 && req.status<400){
             let data = JSON.parse(req.responseText)
-           console.log(data)
+           //console.log(data)
            let isMovieExist = data.isThereMovie
            if (isMovieExist){
                movie = data.object
@@ -261,15 +263,12 @@ Handlebars.registerHelper('getInfo',function(movieDB_id,title){
     }
     req.send()
     return ''
-})
+}
 
-// $.when(Send_Request(),renderHTML).then(
-
-// function(){
-//     console.log(ids)
-// }
+   
     
-//     )
+
+    
 
 
 function updateInfo(movieDB_id,name){

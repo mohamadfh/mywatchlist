@@ -102,7 +102,10 @@
                 {{getInfo id title}}  
 
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="watched-{{id}}"> 
+                  <input
+                  
+                   onchange="updateInfo('{{id}}','{{#if title}}{{title}}{{else}}{{name}}{{/if}}')" 
+                   class="form-check-input" type="checkbox" id="watched-{{id}}"> 
                   <label class="form-check-label">Watched</label>
                 </div>
                 
@@ -111,7 +114,9 @@
             
                 
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="bookmark-{{id}}">
+                  <input
+                   onchange="updateInfo('{{id}}','{{#if title}}{{title}}{{else}}{{name}}{{/if}}')" 
+                  class="form-check-input" type="checkbox" id="bookmark-{{id}}">
                   <label class="form-check-label">Bookmarked</label>
                 </div>
 
