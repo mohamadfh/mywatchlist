@@ -292,12 +292,20 @@ function updateInfo(movieDB_id,name){
 				body:JSON.stringify({'watched':document.getElementById('watched-'+movieDB_id).checked,
                  'bookmark':document.getElementById('bookmark-'+movieDB_id).checked})
 			}).then(()=>{
+                  
+                    // Show toast notification
+                   alert_toast(name)
 
+
+
+
+                    // Change check boxes
                  if (movie.watched){watcehd_checkBox = true;}
                  else{watcehd_checkBox = false;} 
                if(movie.bookmark){bookmark_checkBox = true; }
                else{bookmark_checkBox = false;}
                console.log('Movie Updated')
+
             })
 
 
@@ -320,7 +328,8 @@ function updateInfo(movieDB_id,name){
             'bookmark':document.getElementById('bookmark-'+movieDB_id).checked})
     }
     ).then(
-        //ALERT MASSAGE FOR 2 SECOND
+        // Show toast notification
+        alert_toast(name)
     )
     console.log('MOVIE ADDED')
            }
@@ -366,4 +375,27 @@ window.scrollTo(0,0)
 
 
 
+function alert_toast(name){
+    document.getElementById('toast').innerHTML = `
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        
+        <strong class="me-auto">MyWatchList</strong>
+        <small>just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        ${name} got updated
+      </div>
+    </div>
+  </div>
+    `
+    // Show toast notification
+    $(document).ready(function(){
+        $('.toast').toast('show');
+      });
 
+
+
+}
