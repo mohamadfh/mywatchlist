@@ -28,14 +28,13 @@ def movieList(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def movieUpdate(request, movieDB_id):
-    movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
-    # you need to rewrite whole object in frontEnd and update part in which you want to change
-    serializer = TitleMovieSerializer(instance=movie, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        messages.info(request, f'{movie} Has been updated')
+    if request.method == 'POST':
+        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        serializer = TitleMovieSerializer(instance=movie, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
     return Response(serializer.data)
 
 

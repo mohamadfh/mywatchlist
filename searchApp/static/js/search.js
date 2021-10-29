@@ -280,13 +280,29 @@ function updateInfo(movieDB_id,name){
            let isMovieExist = data.isThereMovie
            if (isMovieExist){
                movie = data.object
-               if (movie.watched){
-                document.getElementById('watched-'+movieDB_id).checked = true;
-               } 
-               if(movie.bookmark){
-                document.getElementById('bookmark-'+movieDB_id).checked = true;
+               watcehd_checkBox = document.getElementById('watched-'+movieDB_id).checked
+               bookmark_checkBox = document.getElementById('bookmark-'+movieDB_id).checked
+            //update info
+            fetch(`${BASE_URL}movie-update/${movieDB_id}`, {
+				method:'POST', 
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({'watched':document.getElementById('watched-'+movieDB_id).checked,
+                 'bookmark':document.getElementById('bookmark-'+movieDB_id).checked})
+			}).then(()=>{
 
-               }
+                 if (movie.watched){watcehd_checkBox = true;}
+                 else{watcehd_checkBox = false;} 
+               if(movie.bookmark){bookmark_checkBox = true; }
+               else{bookmark_checkBox = false;}
+               console.log('Movie Updated')
+            })
+
+
+
+              
            }
            // if movie does not exist create it
            else {
@@ -303,6 +319,8 @@ function updateInfo(movieDB_id,name){
                 'watched':document.getElementById('watched-'+movieDB_id).checked,
             'bookmark':document.getElementById('bookmark-'+movieDB_id).checked})
     }
+    ).then(
+        //ALERT MASSAGE FOR 2 SECOND
     )
     console.log('MOVIE ADDED')
            }
