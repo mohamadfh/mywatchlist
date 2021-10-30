@@ -315,7 +315,7 @@ function updateInfo(movieDB_id,name){
                 fetch(`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}`).then((response) => {
                     return response.json(); }).then((data)=>{
                         movie = data.object 
-                        if(movie.bookmark==false && movie.watched==false)
+                        if(movie.bookmark==false && movie.watched==false){
                         console.log('movie should be deleted!')
                         fetch(`${BASE_URL}delete-movie/${movieDB_id}`, {
 				method:'DELETE', 
@@ -323,10 +323,11 @@ function updateInfo(movieDB_id,name){
 					'Content-type':'application/json',
 					'X-CSRFToken':csrftoken,
 				}
-			}).then(()=>{
+			}
+            ).then(()=>{
                 alert_toast(`${name} deleted`)
             })
-                    })
+                    }})
 
 
              })
@@ -355,7 +356,7 @@ function updateInfo(movieDB_id,name){
     }
     ).then(
         // Show toast notification
-        alert_toast(`${name} updated!`)
+        alert_toast(`${name} added!`)
     )
     console.log('MOVIE ADDED')
            }
