@@ -12,7 +12,11 @@ urlpatterns = [
          movieUpdate, name='update'),
     path('istheremovie/<int:movieDB_id>', isThereMovie, name='is-there-movie'),
     path('get-movie-by-moviedbid/<int:movieDB_id>',
-         getMovieInfo, name='getMovieInfo')
+         getMovieInfo, name='getMovieInfo'),
+    path('bookmark/', movieBookmarked, name='bookmark-list'),
+    path('watched/', movieWatched, name='watched-list'),
+    path('get-user/', getUser),
+    path('delete-movie/<int:movieDB_id>', deleteMovie)
 
 
 ]

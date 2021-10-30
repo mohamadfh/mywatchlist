@@ -10,7 +10,7 @@ class ListsAdmin(admin.ModelAdmin):
 
 
 class TitleMovieAdmin(admin.ModelAdmin):
-    list_display = ['title_movie', 'list_user',
+    list_display = ['title_movie', 'user',
                     'watched', 'bookmark', 'date_added', 'movieDB_id']
 
 

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock title %}
+{% load static %}
+{% block content %}
+{% verbatim %}
+
+  <style>
+      .card-body{
+          display: none;
+      }
+      .card:hover .card-body{
+          display: block;
+
+      }
+  </style>
+  <div class="container" id="container-profile">
+    <div id="loading-gif" style="display: block">
+      <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <span>Loading</span>
+      </div>
+    
+    </div>
+    <div id="others"></div>
+  
+ 
+
+  <script id="titleTemplate" type="text/x-handlebars-template">
+    <div class="row row-col-4 g-0">
+   
+  {{#each this}}
+  
+  <div class="col-xs-12 col-sm-4 col-lg-3">
+  <div class="card mb-4 center" style="max-width: 18rem;">
+    <img src="{{poster_path}}"
+     class="card-img-top img-fluid rounded-start center" alt="...">
+    <div class="card-body">
+      
+      <div class="form-check form-switch">
+        <input
+        {{#if watched}}checked{{/if}}
+        class="form-check-input" type="checkbox" id="watched-{{id}}"> 
+        <label class="form-check-label">Watched</label>
+      </div>
+      
+      <div class="form-check form-switch">
+        <input
+         {{#if bookmark}}checked{{/if}}
+          class="form-check-input"  type="checkbox" id="bookmark-{{id}}">
+        <label class="form-check-label">Bookmarked</label>
+      </div>
+      <a href="#" class="link">datail page</a>
+    </div>
+  </div>
+
+</div> <!--End Col-->
+{{/each}}
+
+</div>
+
+
+  </script>
+{% endverbatim %}
+</div> <!--End container-->
+
+<script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock content %}

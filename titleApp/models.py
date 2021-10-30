@@ -39,6 +39,8 @@ class TitleMovie(models.Model):
         Lists, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
+    media_type = models.CharField(max_length=14, null=True, blank=True)
+    poster_path = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         ordering = ['date_added']

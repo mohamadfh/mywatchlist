@@ -11,6 +11,8 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/style1.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style_search.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style_loading.css' %}" />
@@ -24,7 +26,8 @@
   </head>
 
   <body id="body">
-    
+    <input type="hidden" id="username" value="{{user.id}}">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">WatchList</a>
@@ -45,7 +48,7 @@
             style="--bs-scroll-height: 100px"
           >
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
+              <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"
                 >Profile</a
               >
             </li>
@@ -120,7 +123,6 @@
     {% block content %}{% endblock content %}
     
     
-    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -135,7 +137,7 @@
         $('.toast').toast('show');
       });
       </script>
-      
+
     <script src="{% static 'js/search_navbar.js' %}"></script>
    
   </body>

@@ -28,6 +28,29 @@ def movieList(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def movieBookmarked(request):
+    user = request.user
+    movies = TitleMovie.objects.filter(user=user, bookmark=True)
+    serializer = TitleMovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def movieWatched(request):
+    user = request.user
+    movies = TitleMovie.objects.filter(user=user, watched=True)
+    serializer = TitleMovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getUser(request):
+    user = request.user
+    json = {'user': str(user)}
+    return Response(json)
+
+
 @api_view(['POST', 'GET'])
 def movieUpdate(request, movieDB_id):
     if request.method == 'POST':
@@ -74,3 +97,11 @@ def movieCreate(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# delete object if two bookmark and watched was false
+@api_view(['DELETE'])
+def deleteMovie(request, movieDB_id):
+    movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+    movie.delete()
+    return Response({'delete': True})

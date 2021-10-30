@@ -23,3 +23,7 @@ def getMovieDetail(request, id):
     r = requests.get(
         f'https://api.themoviedb.org/3/movie/{id}?api_key={API_KEY}&append_to_response=images')
     return HttpResponse(id)
+
+
+def profileView(request):
+    return render(request, 'searchApp/profile.html')
