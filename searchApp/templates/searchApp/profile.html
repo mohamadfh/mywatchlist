@@ -1,18 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Search{% endblock title %}
+{% block title %}Profile{% endblock title %}
 {% load static %}
 {% block content %}
+
 {% verbatim %}
 
-  <style>
-      .card-body{
-          display: none;
-      }
-      .card:hover .card-body{
-          display: block;
-
-      }
-  </style>
+ 
   <div class="container" id="container-profile">
     <div id="loading-gif" style="display: block">
       <div class="wrapper">
@@ -31,16 +24,21 @@
  
 
   <script id="titleTemplate" type="text/x-handlebars-template">
-    <div class="row row-col-4 g-0">
+    <div class="row row-col-4 g-3">
    
   {{#each this}}
   
-  <div class="col-xs-12 col-sm-4 col-lg-3">
-  <div class="card mb-4 center" style="max-width: 18rem;">
+  <div class="col-xs-12 col-sm-6S col-md-4 col-lg-2">
+    
+  <div class="card mb-4 center card-hover" style="max-width: 18rem;">
     <img src="{{poster_path}}"
      class="card-img-top img-fluid rounded-start center" alt="...">
-    <div class="card-body">
+     <div class="overlay"></div>
+     <div class="card-body">
       
+      
+
+
       <div class="form-check form-switch">
         <input
         {{#if watched}}checked{{/if}}
@@ -48,7 +46,7 @@
         <label class="form-check-label">Watched</label>
       </div>
       
-      <div class="form-check form-switch">
+      <div class="form-check form-switch" style="display: none;">
         <input
          {{#if bookmark}}checked{{/if}}
           class="form-check-input"  type="checkbox" id="bookmark-{{id}}">

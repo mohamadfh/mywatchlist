@@ -5,7 +5,7 @@ let othersContainer = document.getElementById('others')
 let APIKey = 'b807e5f9454227525cea99c772a74b7d'
 let loadingGif = document.getElementById('loading-gif')
 const BASE_URL = 'http://127.0.0.1:8000/api/'
-
+let include_adult = document.getElementById('include-adult').checked
 
 function getCookie(name) {
     var cookieValue = null;
@@ -47,8 +47,17 @@ field_search.addEventListener('input',function(event){
 btn_search.addEventListener('click',function(){
 
         // Call Send_Request FUNCTION
+        let include_adult = document.getElementById('include-adult').checked
+        let yearRegex = getYearRegex(field_search.value)
+        console.log(yearRegex)
+        let titleMovie = field_search.value
+        if(yearRegex!=null){
+            titleMovie = field_search.value.replace(yearRegex,'')
+        }
         
-        Send_Request(field_search.value)
+           Send_Request(titleMovie,include_adult,1,yearRegex)  
+        
+       
         
        // Send_Request('shutter island')
   
@@ -56,7 +65,7 @@ btn_search.addEventListener('click',function(){
 
 
 //  1
-function Send_Request(query,page=1){
+function Send_Request(query,include_adult=false,page=1,year=''){
     if (query!=''){
         //hide others
         othersContainer.style.display = 'none'
@@ -65,8 +74,10 @@ function Send_Request(query,page=1){
     // CREATE A XMLRquest and OPEN IT
     
     let request = new XMLHttpRequest();
-    request.open('GET',`https://api.themoviedb.org/3/search/multi?api_key=${APIKey}&query=${query}&page=${page}`   ,true);
-
+    request.open('GET',
+    `https://api.themoviedb.org/3/search/multi?api_key=${APIKey}&query=${query}&page=${page}&sort_by=popularity.desc&include_adult=${include_adult}&year=${year}`
+       ,true);
+console.log(request)
     // AFTER IT GOT LOAD DO THIS
     request.onload = function(){
 
@@ -369,9 +380,7 @@ function updateInfo(movieDB_id,name){
     }
     }
     req.send()
-
-
-    
+  
 }
 
 
@@ -386,7 +395,7 @@ function updateInfo(movieDB_id,name){
 function getNextPage(data){
 let current_page = Number(data);
     current_page++;
-Send_Request(field_search.value,current_page)
+Send_Request(field_search.value,include_adult,current_page)
 window.scrollTo(0,0)
 };
 
@@ -395,7 +404,7 @@ function getLastPage(data){
 
     let current_page = Number(data);
     current_page--;
-Send_Request(field_search.value,current_page)
+Send_Request(field_search.value,include_adult,current_page)
 window.scrollTo(0,0)
 };
 
@@ -425,4 +434,17 @@ function alert_toast(name){
 
 
 
+}
+
+
+function getYearRegex(fullname){
+    let year = ''
+    try{
+    let re = /(.+)\W(\d{4})?/;
+    year = re.exec(fullname)[2]
+}
+catch{
+    
+}
+return year
 }

@@ -3,10 +3,12 @@ from django.shortcuts import render
 from titleApp.models import Lists
 import requests
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 API_KEY = 'b807e5f9454227525cea99c772a74b7d'
 
 
+@login_required(login_url='/account/')
 def searchView(request):
     user = request.user
     lists = Lists.objects.filter(user=user)
@@ -25,5 +27,6 @@ def getMovieDetail(request, id):
     return HttpResponse(id)
 
 
+@login_required(login_url='/account/')
 def profileView(request):
     return render(request, 'searchApp/profile.html')
