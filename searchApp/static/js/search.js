@@ -4,7 +4,7 @@ let bestResultContainer = document.getElementById('best-result')
 let othersContainer = document.getElementById('others')
 let APIKey = 'b807e5f9454227525cea99c772a74b7d'
 let loadingGif = document.getElementById('loading-gif')
-const BASE_URL = 'http://127.0.0.1:8000/api/'
+var BASE_URL = 'http://127.0.0.1:8000/api/'
 let include_adult = document.getElementById('include-adult').checked
 
 function getCookie(name) {

@@ -1,3 +1,4 @@
+var BASE_URL = 'http://127.0.0.1:8000/api/'
 let darkModeBox = document.getElementById('dark-mode')
 let privateBox = document.getElementById('private')
 

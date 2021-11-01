@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000/api/'
+var BASE_URL = 'http://127.0.0.1:8000/api/'
 let container = document.getElementById('container-profile')
 let loadingGif = document.getElementById('loading-gif')
 let othersContainer = document.getElementById('others')
