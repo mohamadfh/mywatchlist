@@ -26,10 +26,6 @@ var csrftoken = getCookie('csrftoken');
 
 
 
-
-
-
-
 field_search.addEventListener('keyup',function(event){
    
     if (event.key === 'Enter'){
@@ -75,7 +71,7 @@ function Send_Request(query,include_adult=false,page=1,year=''){
     
     let request = new XMLHttpRequest();
     request.open('GET',
-    `https://api.themoviedb.org/3/search/multi?api_key=${APIKey}&query=${query}&page=${page}&sort_by=popularity.desc&include_adult=${include_adult}&year=${year}`
+    `https://api.themoviedb.org/3/search/multi?api_key=${APIKey}&query=${query}&page=${page}&include_adult=${include_adult}&year=${year}`
        ,true);
 console.log(request)
     // AFTER IT GOT LOAD DO THIS
@@ -432,8 +428,6 @@ function alert_toast(name){
         $('.toast').toast('show');
       });
 
-
-
 }
 
 
@@ -444,7 +438,7 @@ function getYearRegex(fullname){
     year = re.exec(fullname)[2]
 }
 catch{
-    
+
 }
 return year
 }

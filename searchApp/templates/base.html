@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{% static 'css/style1.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style_search.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style_loading.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Indie+Flower&display=swap" rel="stylesheet">
     {% block header %}{% endblock header %}
       
     
@@ -132,13 +135,8 @@
 
     </div>
  
-    <script>
-      $(document).ready(function(){
-        $('.toast').toast('show');
-      });
-      </script>
+ <script src="{% static 'js/update_info.js' %}"></script>
 
-    <script src="{% static 'js/search_navbar.js' %}"></script>
    
   </body>
 </html>

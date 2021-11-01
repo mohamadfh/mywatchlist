@@ -1,0 +1,27 @@
+.custom-input {
+    float: right;
+}
+
+.card-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 600ms, visibility 600ms;
+    transition: opacity 600ms, visibility 600ms;
+}
+
+.card:hover .card-body {
+    background-color: rgb(240, 248, 255, 0.8);
+
+    visibility: visible;
+    opacity: 1;
+}
+
+.number-movies {
+    display: inline;
+    font-size: 0.9em;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+}

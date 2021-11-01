@@ -38,7 +38,10 @@ function renderHTML(data){
             loadingGif.style.display = 'none'
                     if (request.status>=200 && request.status<400){
                 let data = JSON.parse(request.responseText)
+                console.log(data.length)
                 
+                
+
                 // CALL THE renderHTML to create CARDS
                 renderHTML(data)
     
@@ -107,3 +110,7 @@ function renderHTML(data){
        
     // END Send_request
 
+Handlebars.registerHelper('getNumberMovies',function(data){
+
+    return data.length
+})
