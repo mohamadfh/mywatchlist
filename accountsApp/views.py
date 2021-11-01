@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth import views as auth_views
 from titleApp.models import Lists
 from django.contrib.auth.models import User
+from .models import profileInfo
 
 
 def loginView(request):
@@ -16,7 +17,7 @@ def loginView(request):
             user = form.get_user()
             login(request, user)
             messages.success(request, f'Welcome {user}')
-            return HttpResponse(f'welcome {user}')
+            return redirect('/search/profile/')
         else:
             arg = {'form': form}
             return render(request, 'accountsApp/login.html', arg)
@@ -37,13 +38,18 @@ def signUpView(request):
             user = form.cleaned_data.get('username')
             messages.success(request, f'{user} has been created!')
 
+            # create profile info
+            profile = profileInfo.objects.create(
+                user=User.objects.get(username=user))
+            profile.save()
+
             # Create a defult list for new comers
             for genre in ['My list', 'Anime', 'Classic', 'Romance', 'My Fave']:
                 list_obj = Lists.objects.create(
                     title=genre, user=User.objects.get(username=user))
                 list_obj.save()
-
-            return redirect('/account/')
+            login(request, User.objects.get(username=user))
+            return redirect('/search/profile/')
         else:
             arg = {'form': form}
             return render(request, 'accountsApp/signUp.html', arg)

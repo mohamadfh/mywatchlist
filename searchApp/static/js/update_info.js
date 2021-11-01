@@ -46,7 +46,7 @@ function updateInfo(movieDB_id,name){
 			}).then(()=>{
                   
                     // Show toast notification
-                   alert_toast(`${name} updated!`)
+                   alert_toast(`${name} <strong>updated!</strong>`)
                     
                     
                     // Change check boxes
@@ -74,7 +74,7 @@ function updateInfo(movieDB_id,name){
 				}
 			}
             ).then(()=>{
-                alert_toast(`${name} deleted`)
+                alert_toast(`${name} <strong>deleted</strong>`)
             })
                     }})
 
@@ -107,7 +107,7 @@ function updateInfo(movieDB_id,name){
     }
     ).then(
         // Show toast notification
-        alert_toast(`${name} added!`)
+        alert_toast(`${name} <strong>added!</strong>`)
     )
     console.log('MOVIE ADDED')
            }
@@ -134,7 +134,7 @@ function alert_toast(name){
         <small>just now</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-      <div class="toast-body">
+      <div class="toast-body fira-sans-font">
         ${name}
       </div>
     </div>

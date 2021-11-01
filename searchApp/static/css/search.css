@@ -32,3 +32,23 @@ body {
     font-family: 'Fira Sans', sans-serif;
     font-family: 'Indie Flower', cursive;
 }
+
+.fira-sans-font {
+    font-size: 1.5em;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+}
+
+.main-font {
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+}
+
+.date-added {
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1em;
+    bottom: 1em;
+    float: left;
+    position: absolute;
+}

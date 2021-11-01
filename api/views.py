@@ -4,9 +4,10 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from titleApp.models import Lists, TitleMovie
-from .serializer import TitleMovieSerializer
+from .serializer import TitleMovieSerializer, ProfileInfoSerializer
 from django.contrib import messages
 from rest_framework import status
+from accountsApp.models import profileInfo
 
 
 @api_view(['GET'])
@@ -27,14 +28,14 @@ def movieList(request):
     serializer = TitleMovieSerializer(movies, many=True)
     return Response(serializer.data)
 
+
 # bookmark movies which has'nt been watched yet
-
-
 @api_view(['GET'])
 def movieBookmarked(request):
     user = request.user
-    movies = TitleMovie.objects.filter(user=user, bookmark=True, watched=False)
-    serializer = TitleMovieSerializer(movies, many=True)
+    movies = TitleMovie.objects.filter(
+        user=user, bookmark=True, watched=False).order_by('date_added')
+    serializer = TitleMovieSerializer(reversed(movies), many=True)
     return Response(serializer.data)
 
 
@@ -42,7 +43,7 @@ def movieBookmarked(request):
 def movieWatched(request):
     user = request.user
     movies = TitleMovie.objects.filter(user=user, watched=True)
-    serializer = TitleMovieSerializer(movies, many=True)
+    serializer = TitleMovieSerializer(reversed(movies), many=True)
     return Response(serializer.data)
 
 
@@ -107,3 +108,28 @@ def deleteMovie(request, movieDB_id):
     movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
     movie.delete()
     return Response({'delete': True})
+
+
+# update or get profile info
+
+
+@api_view(['GET', 'POST'])
+def getProfileInfo(request):
+    if request.method == 'POST':
+
+        info = profileInfo.objects.get(user=request.user)
+        serializer = ProfileInfoSerializer(instance=info, data=request.data)
+
+        if serializer.is_valid():
+            print('Valid')
+            serializer.save()
+        print(request.data, serializer.errors)
+        return Response(serializer.data)
+    else:
+        try:
+            info = profileInfo.objects.get(user=request.user)
+        except:
+            info = profileInfo.objects.create(user=request.user)
+            info.save()
+        serializer = ProfileInfoSerializer(info)
+        return Response(serializer.data)
