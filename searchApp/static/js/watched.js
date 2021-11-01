@@ -27,7 +27,7 @@ function renderHTML(data){
         // CREATE A XMLRquest and OPEN IT
         
         let request = new XMLHttpRequest();
-        request.open('GET',`${BASE_URL}bookmark/`   ,true);
+        request.open('GET',`${BASE_URL}watched/`   ,true);
     
         // AFTER IT GOT LOAD DO THIS
         request.onload = function(){
@@ -40,7 +40,7 @@ function renderHTML(data){
                 let data = JSON.parse(request.responseText)
                 console.log(data.length)
                 if(data.length==0){
-                    container.innerHTML = `<h1 class="display-6">You have no Bookmarks Yet ...</h1>`
+                    container.innerHTML = `<h1 class="display-6">You have not watched any movies Yet ...</h1>`
                 }
                 
                 
@@ -55,7 +55,7 @@ function renderHTML(data){
                     othersContainer.innerHTML = `
                     <div class="row row-col-auto">
                     <div class="center-btn" style="margin: 2em;align-self:center;">
-        <div class="col-md-5 center-card"><p class="h2">No Bookmark</p></div>
+        <div class="col-md-5 center-card"><p class="h2">No watched</p></div>
         </div>
                     <div class="col-md-4 center-card">
                     <img class="img-fluid center-card" src="/static/No data-amico.svg" alt="no data">

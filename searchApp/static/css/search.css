@@ -18,3 +18,17 @@ body {
     background-color: #fff;
     -webkit-box-shadow: inset 0 0 6px rgba(90, 90, 90, 0.7);
 }
+
+.number-movies2 {
+    display: inline;
+    font-size: 0.9em;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+}
+
+.which-not {
+    display: inline;
+    font-size: 0.6em;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+}

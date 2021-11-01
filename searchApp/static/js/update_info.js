@@ -101,7 +101,9 @@ function updateInfo(movieDB_id,name){
             'bookmark':document.getElementById('bookmark-'+movieDB_id).checked,
         'user':user,
     'media_type':document.getElementById('media_type-'+movieDB_id).value,
-    'poster_path':document.getElementById('poster_path-'+movieDB_id).value})
+    'poster_path':document.getElementById('poster_path-'+movieDB_id).value,
+    'backdrop_path':document.getElementById('backdrop_path-'+movieDB_id).value})
+    
     }
     ).then(
         // Show toast notification

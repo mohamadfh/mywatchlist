@@ -28,9 +28,7 @@
   <script id="titleTemplate" type="text/x-handlebars-template">
     <div class="row row-col-4 g-3">
       
-      <h1 class="display-6">My Bookmarks <span class="number-movies">({{getNumberMovies this}})</span>
-        <span class="which-not">which i haven't watched</span> 
-      </h1>
+      <h1 class="display-6">My Watched <span class="number-movies">({{getNumberMovies this}})</span></h1>
     
   {{#each this}}
   <input type="hidden" id="media_type-{{movieDB_id}}" value="{{media_type}}">
@@ -77,7 +75,7 @@
 </div> <!--End container-->
 
 <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
-<script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/watched.js' %}"></script>
 <script src="{% static 'js/profile_card.js' %}"></script>
 
 {% endblock content %}

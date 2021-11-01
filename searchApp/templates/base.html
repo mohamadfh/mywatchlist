@@ -1,4 +1,5 @@
 {% load static %}
+{% load getInfoTag %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,13 +51,17 @@
             class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
             style="--bs-scroll-height: 100px"
           >
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'search' %}">Discover</a>
+          </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"
-                >Profile</a
+                >Bookmarks <span class="number-movies2">{%numberOfBookmarks user%}</span></a
               >
             </li>
+            
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'search' %}">Discover</a>
+              <a class="nav-link" href="{% url 'watched' %}">Watcheds <span class="number-movies2">{%numberOfWatched user%}</span></a>
             </li>
             <li class="nav-item">
               <a

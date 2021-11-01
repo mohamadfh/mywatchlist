@@ -27,11 +27,13 @@ def movieList(request):
     serializer = TitleMovieSerializer(movies, many=True)
     return Response(serializer.data)
 
+# bookmark movies which has'nt been watched yet
+
 
 @api_view(['GET'])
 def movieBookmarked(request):
     user = request.user
-    movies = TitleMovie.objects.filter(user=user, bookmark=True)
+    movies = TitleMovie.objects.filter(user=user, bookmark=True, watched=False)
     serializer = TitleMovieSerializer(movies, many=True)
     return Response(serializer.data)
 

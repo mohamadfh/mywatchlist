@@ -41,6 +41,7 @@ class TitleMovie(models.Model):
         User, on_delete=models.CASCADE, blank=True, null=True)
     media_type = models.CharField(max_length=14, null=True, blank=True)
     poster_path = models.CharField(max_length=500, blank=True, null=True)
+    backdrop_path = models.CharField(max_length=550, blank=True, null=True)
 
     class Meta:
         ordering = ['date_added']

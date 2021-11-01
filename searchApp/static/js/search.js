@@ -73,7 +73,6 @@ function Send_Request(query,include_adult=false,page=1,year=''){
     request.open('GET',
     `https://api.themoviedb.org/3/search/multi?api_key=${APIKey}&query=${query}&page=${page}&include_adult=${include_adult}&year=${year}`
        ,true);
-console.log(request)
     // AFTER IT GOT LOAD DO THIS
     request.onload = function(){
 

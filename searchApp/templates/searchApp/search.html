@@ -78,6 +78,8 @@
               <a  target="_blank" href="{{getDetailUrl media_type id}}">
                 <input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
                 <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+                <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+
                 <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
                class="img-fluid rounded-start center" alt="{{title}}" loading="lazy">
               
@@ -171,7 +173,6 @@
   </script>
   {% endverbatim %}
   <script src="{% static 'js/search.js' %}"></script>
-  <script src="{% static 'js/ajax_add.js' %}" ></script>
   <script src="{% static 'api/getPost.js' %}"></script>
 
 {% endblock content %}

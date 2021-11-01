@@ -30,3 +30,8 @@ def getMovieDetail(request, id):
 @login_required(login_url='/account/')
 def profileView(request):
     return render(request, 'searchApp/profile.html')
+
+
+@login_required(login_url='/account/')
+def watchedView(request):
+    return render(request, 'searchApp/watched_movies.html')
