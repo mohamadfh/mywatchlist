@@ -46,7 +46,7 @@
         <input
         {{#if watched}}checked{{/if}}
         class="form-check-input " type="checkbox" id="watched-{{movieDB_id}}"
-        onchange="updateInfo('{{movieDB_id}}','{{title_movie}}')"> 
+        onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)"> 
         <label class="form-check-label">Watched</label>
       </div>
       
@@ -54,7 +54,7 @@
         <input
          {{#if bookmark}}checked{{/if}}
           class="form-check-input"  type="checkbox" id="bookmark-{{movieDB_id}}"
-          onchange="updateInfo('{{movieDB_id}}','{{title_movie}}')">
+          onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)">
         <label class="form-check-label">Bookmarked</label>
       </div>
       <p><small class="text-muted date-added">{{date_added}} added</small></p>

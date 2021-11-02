@@ -45,7 +45,7 @@ btn_search.addEventListener('click',function(){
         // Call Send_Request FUNCTION
         let include_adult = document.getElementById('include-adult').checked
         let yearRegex = getYearRegex(field_search.value)
-        console.log(yearRegex)
+        //console.log(yearRegex)
         let titleMovie = field_search.value
         if(yearRegex!=null){
             titleMovie = field_search.value.replace(yearRegex,'')
@@ -273,120 +273,6 @@ function getInfoHandelbar(movieDB_id,title){
 }
 
    
-    
-
-    
-
-
-function updateInfo(movieDB_id,name){
-    let req = new XMLHttpRequest();
-    req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
-    req.onload = function(){
-        if (req.status>=200 && req.status<400){
-            let data = JSON.parse(req.responseText)
-           let isMovieExist = data.isThereMovie
-           if (isMovieExist){
-               movie = data.object
-               watcehd_checkBox = document.getElementById('watched-'+movieDB_id).checked
-               bookmark_checkBox = document.getElementById('bookmark-'+movieDB_id).checked
-               user = document.getElementById('username').value
-               console.log(user,document.getElementById('media_type-'+movieDB_id).value,
-               document.getElementById('poster_path-'+movieDB_id).value)
-            //update info
-            fetch(`${BASE_URL}movie-update/${movieDB_id}`, {
-				method:'POST', 
-				headers:{
-					'Content-type':'application/json',
-					'X-CSRFToken':csrftoken,
-				},
-				body:JSON.stringify({'watched':document.getElementById('watched-'+movieDB_id).checked,
-                 'bookmark':document.getElementById('bookmark-'+movieDB_id).checked,
-                'user':user,
-                'media_type':document.getElementById('media_type-'+movieDB_id).value,
-            'poster_path':document.getElementById('poster_path-'+movieDB_id).value})
-			}).then(()=>{
-                  
-                    // Show toast notification
-                   alert_toast(`${name} updated!`)
-
-                    // Change check boxes
-                 if (movie.watched){watcehd_checkBox = true;}
-                 else{watcehd_checkBox = false;} 
-               if(movie.bookmark){bookmark_checkBox = true; }
-               else{bookmark_checkBox = false;}
-               console.log('Movie Updated')
-
-               
-             }).then(()=>{
-                fetch(`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}`).then((response) => {
-                    return response.json(); }).then((data)=>{
-                        movie = data.object 
-                        if(movie.bookmark==false && movie.watched==false){
-                        console.log('movie should be deleted!')
-                        fetch(`${BASE_URL}delete-movie/${movieDB_id}`, {
-				method:'DELETE', 
-				headers:{
-					'Content-type':'application/json',
-					'X-CSRFToken':csrftoken,
-				}
-			}
-            ).then(()=>{
-                alert_toast(`${name} deleted`)
-            })
-                    }})
-
-
-             })
-             
-
-
-              
-           }
-           // if movie does not exist create it
-           else {
-            user = document.getElementById('username').value
-                console.log('movie was not in DataBase')
-                url = BASE_URL + 'create-movie/'
-                fetch(url, {
-                    method:'POST',
-                    headers:{
-                        'Content-type':'application/json',
-                        'X-CSRFToken':csrftoken,
-                    },
-                    body:JSON.stringify({'movieDB_id':movieDB_id,'title_movie':name,
-                'watched':document.getElementById('watched-'+movieDB_id).checked,
-            'bookmark':document.getElementById('bookmark-'+movieDB_id).checked,
-        'user':user,
-    'media_type':document.getElementById('media_type-'+movieDB_id).value,
-    'poster_path':document.getElementById('poster_path-'+movieDB_id).value})
-    }
-    ).then(
-        // Show toast notification
-        alert_toast(`${name} added!`)
-    )
-    console.log('MOVIE ADDED')
-           }
-            
-        }
-    
-    
-    else{
-        console.log('Unable to connect to server!')
-    }
-    }
-    req.send()
-  
-}
-
-
-
-
-
-
-
-
-
-
 function getNextPage(data){
 let current_page = Number(data);
     current_page++;

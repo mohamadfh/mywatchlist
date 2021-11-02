@@ -63,6 +63,7 @@ def movieUpdate(request, movieDB_id):
         serializer = TitleMovieSerializer(instance=movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
+
     return Response(serializer.data)
 
 

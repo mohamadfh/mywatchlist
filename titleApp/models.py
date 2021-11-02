@@ -29,7 +29,7 @@ class Lists(models.Model):
 
 
 class TitleMovie(models.Model):
-    title_movie = models.CharField(max_length=200, blank=True, null=True)
+    title_movie = models.CharField(max_length=300, blank=True, null=True)
     movieDB_id = models.IntegerField(blank=True, null=True)
     imdb_id = models.IntegerField(blank=True, null=True)
     watched = models.BooleanField(default=False)
@@ -39,9 +39,9 @@ class TitleMovie(models.Model):
         Lists, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
-    media_type = models.CharField(max_length=14, null=True, blank=True)
-    poster_path = models.CharField(max_length=500, blank=True, null=True)
-    backdrop_path = models.CharField(max_length=550, blank=True, null=True)
+    media_type = models.CharField(max_length=30, null=True, blank=True)
+    poster_path = models.CharField(max_length=850, blank=True, null=True)
+    backdrop_path = models.CharField(max_length=850, blank=True, null=True)
 
     class Meta:
         ordering = ['date_added']

@@ -117,3 +117,4 @@ Handlebars.registerHelper('getNumberMovies',function(data){
 
     return data.length
 })
+

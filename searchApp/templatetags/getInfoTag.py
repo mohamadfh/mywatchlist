@@ -35,3 +35,8 @@ def numberOfWatched(user):
         return f'({len(movies)})'
     except:
         return ''
+
+
+# @register.simple_tag
+# def titleSnippet(title):
+#     return len(title)

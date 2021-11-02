@@ -17,4 +17,3 @@ var csrftoken = getCookie('csrftoken');
 
 
 
-console.log('SALAM')

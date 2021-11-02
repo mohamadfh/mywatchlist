@@ -17,7 +17,6 @@ function getCookie(name) {
 var csrftoken = getCookie('csrftoken');
 
 
-
 function updateInfo(movieDB_id,name){
     let req = new XMLHttpRequest();
     req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
@@ -27,6 +26,7 @@ function updateInfo(movieDB_id,name){
            let isMovieExist = data.isThereMovie
            if (isMovieExist){
                movie = data.object
+               console.log(movie)
                watcehd_checkBox = document.getElementById('watched-'+movieDB_id).checked
                bookmark_checkBox = document.getElementById('bookmark-'+movieDB_id).checked
                user = document.getElementById('username').value
@@ -58,6 +58,7 @@ function updateInfo(movieDB_id,name){
 
                
              }).then(()=>{
+                 
                 fetch(`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}`).then((response) => {
                     return response.json(); }).then((data)=>{
                         movie = data.object 
@@ -96,7 +97,8 @@ function updateInfo(movieDB_id,name){
                         'Content-type':'application/json',
                         'X-CSRFToken':csrftoken,
                     },
-                    body:JSON.stringify({'movieDB_id':movieDB_id,'title_movie':name,
+                    body:JSON.stringify({'movieDB_id':movieDB_id,
+                    'title_movie':name,
                 'watched':document.getElementById('watched-'+movieDB_id).checked,
             'bookmark':document.getElementById('bookmark-'+movieDB_id).checked,
         'user':user,
@@ -146,3 +148,13 @@ function alert_toast(name){
       });
 
 }
+
+
+//title snippet
+Handlebars.registerHelper('titleSnippet',function(title){
+    let res = title
+    if(title.length>=100){
+        res = title.slice(0,100) + ' ...'
+    }
+return res
+})
