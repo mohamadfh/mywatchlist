@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -8,6 +9,7 @@ from .serializer import TitleMovieSerializer, ProfileInfoSerializer
 from django.contrib import messages
 from rest_framework import status
 from accountsApp.models import profileInfo
+from django.contrib.auth.models import User
 
 
 @api_view(['GET'])
@@ -133,3 +135,11 @@ def getProfileInfo(request):
             info.save()
         serializer = ProfileInfoSerializer(info)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getPublicProfile(request):
+    public_profiles = profileInfo.objects.filter(private=False)
+    serializer = ProfileInfoSerializer(
+        public_profiles, many=True)
+    return Response(serializer.data)

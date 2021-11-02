@@ -17,7 +17,8 @@ urlpatterns = [
     path('watched/', movieWatched, name='watched-list'),
     path('get-user/', getUser),
     path('delete-movie/<int:movieDB_id>', deleteMovie),
-    path('get-profile-info/', getProfileInfo)
+    path('get-profile-info/', getProfileInfo),
+    path('get-public-profiles/', getPublicProfile)
 
 
 ]

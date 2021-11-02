@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'django_telegram_login',
+    'explore'
 
 ]
 
