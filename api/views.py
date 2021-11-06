@@ -59,7 +59,8 @@ def getUser(request):
 @api_view(['POST', 'GET'])
 def movieUpdate(request, movieDB_id):
     if request.method == 'POST':
-        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        movie = TitleMovie.objects.get(
+            user=request.user, movieDB_id=movieDB_id)
         serializer = TitleMovieSerializer(instance=movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -71,7 +72,8 @@ def movieUpdate(request, movieDB_id):
 def isThereMovie(request, movieDB_id):
     json = {}
     try:
-        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        movie = TitleMovie.objects.get(
+            user=request.user, movieDB_id=movieDB_id)
         json['isThereMovie'] = True
         print(f'{movie} The movie was existed')
     except:
@@ -84,7 +86,8 @@ def isThereMovie(request, movieDB_id):
 def getMovieInfo(request, movieDB_id):
     json = {}
     try:
-        movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+        movie = TitleMovie.objects.get(
+            user=request.user, movieDB_id=movieDB_id)
         serializer = TitleMovieSerializer(movie)
         json['isThereMovie'] = True
         json['object'] = serializer.data
@@ -108,7 +111,7 @@ def movieCreate(request):
 # delete object if two bookmark and watched was false
 @api_view(['DELETE'])
 def deleteMovie(request, movieDB_id):
-    movie = TitleMovie.objects.get(movieDB_id=movieDB_id)
+    movie = TitleMovie.objects.get(user=request.user, movieDB_id=movieDB_id)
     movie.delete()
     return Response({'delete': True})
 

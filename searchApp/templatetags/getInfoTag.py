@@ -1,6 +1,6 @@
 from django import template
 from titleApp.models import TitleMovie
-
+from django.contrib.auth.models import User
 
 register = template.Library()
 
@@ -37,6 +37,23 @@ def numberOfWatched(user):
         return ''
 
 
-# @register.simple_tag
-# def titleSnippet(title):
-#     return len(title)
+@register.simple_tag
+def clientUserBookmark(user, movieDB_id):
+    check = False
+    try:
+        movie = TitleMovie.objects.get(user=user, movieDB_id=movieDB_id)
+        check = movie.bookmark
+    except:
+        pass
+    return check
+
+
+@register.simple_tag
+def clientUserWatched(user, movieDB_id):
+    check = False
+    try:
+        movie = TitleMovie.objects.get(user=user, movieDB_id=movieDB_id)
+        check = movie.watched
+    except:
+        pass
+    return check
