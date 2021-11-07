@@ -40,7 +40,15 @@
           <input
           class="form-check-input" type="checkbox" id="include-adult" 
           >
-          <label class="form-check-label main-font">Include adult</label>
+          <label class="form-check-label main-font">Include A Retad</label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check form-switch">
+          <input
+          class="form-check-input" type="checkbox" id="person-include" 
+          >
+          <label class="form-check-label main-font">Include Person</label>
         </div>
       </div>
   </div> <!--End Col-->
@@ -69,6 +77,93 @@
     {% verbatim %}
     <div class="row row-col-auto">
     {{#each results}}
+
+
+{{#if (mediaTypeIsPerson media_type)}}
+
+{{#if profile_path}}
+
+
+
+
+
+
+
+
+
+<div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
+  <div class="card mb-3 center-card card-hover" style="max-width: 700px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <a  target="_blank" href="{{getDetailUrl media_type id}}">
+         
+          <img src="https://image.tmdb.org/t/p/w500/{{profile_path}}"
+         class="img-fluid rounded-start center rounded" alt="{{name}}" loading="lazy">
+        
+         </a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          {{#if media_type}}
+          <img class="media-type" src="{{getMedia_type media_type}}" alt="...">
+          {{/if}}
+          
+          <h5 class="card-title">
+            {{#if title}}
+            {{title}}
+            {{else}}
+            {{name}}
+            {{/if}}
+             <small class="text-muted">{{#if release_date}}{{getYear release_date}}{{/if}}</small>
+          </h5>
+          {{#if known_for_department}}
+          <p class="card-text"><small class="main-font">{{known_for_department}}</small></p>
+          {{/if}}
+          {{#if vote_average}}
+          <p class="card-text"><small class="main-font">Rate : {{vote_average}}</small></p>
+          {{/if}}
+
+         <!--Show known for movies-->
+          {{#if known_for }}
+          <p class="card-text main-font">known for:</p>
+<div class="row row-col-auto">
+          {{#each known_for}}
+
+          <div class="card" style="max-width: 6rem; object-fit: cover;">
+            <a  target="_blank" href="{{getDetailUrl media_type id}}">
+            <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+             class="card-img-top rounded" alt="{{title}}">
+             </a>
+          </div>
+
+           
+    
+          {{/each}}
+</div> <!--End row-->
+
+         {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{/if}} <!--End if profile_path-->
+
+{{/if}} 
       {{#if poster_path}}
       <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
         <div class="card mb-3 center-card card-hover" style="max-width: 700px;">

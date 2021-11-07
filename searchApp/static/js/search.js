@@ -24,7 +24,10 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
+document.getElementById('include-adult').addEventListener('change',function () {
+    btn_search.click();
 
+  })
 
 field_search.addEventListener('keyup',function(event){
    
@@ -186,8 +189,8 @@ if (media_type=='movie'){
 if(media_type == 'tv') {
     iconSrc += '/static/tv.svg'
 }
-else{
-
+if(media_type=='person'){
+iconSrc += '/static/person.png'
 }
 return iconSrc;
 })
@@ -218,9 +221,12 @@ return lastPage;
 
 
 Handlebars.registerHelper('getDetailUrl',function(media_type,id){
-let url = 'detail/'
+let url = '/'
 if (media_type=='movie'){
     url += 'm/' + id
+}
+if(media_type=='person'){
+    url+='p/'+id
 }
 else{
 if(media_type=='tv'){
@@ -327,3 +333,29 @@ catch{
 }
 return year
 }
+
+
+
+Handlebars.registerHelper('mediaTypeIsPerson',function (media_type) { 
+    let person = false
+    if (media_type=='person'){
+        person=true
+    }
+    else{
+        person=false
+    }
+    return person
+ })
+
+
+ Handlebars.registerHelper('checkIfPersonInclude',function () { 
+     let value_person_include = false
+    if(document.getElementById('person-include').checked==true){
+        value_person_include = true
+    } 
+   
+return value_person_include
+
+  })
+
+
