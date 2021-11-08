@@ -5,7 +5,9 @@ let othersContainer = document.getElementById('others')
 let APIKey = 'b807e5f9454227525cea99c772a74b7d'
 let loadingGif = document.getElementById('loading-gif')
 var BASE_URL = 'http://127.0.0.1:8000/api/'
-let include_adult = document.getElementById('include-adult').checked
+let include_adult = document.getElementById('include-adult')
+
+
 
 function getCookie(name) {
     var cookieValue = null;
@@ -349,13 +351,26 @@ Handlebars.registerHelper('mediaTypeIsPerson',function (media_type) {
 
 
  Handlebars.registerHelper('checkIfPersonInclude',function () { 
-     let value_person_include = false
-    if(document.getElementById('person-include').checked==true){
-        value_person_include = true
-    } 
-   
-return value_person_include
+
+return document.getElementById('include-person').checked
 
   })
 
 
+document.getElementById('include-person').addEventListener('change',function () { 
+let value = document.getElementById('include-person').checked
+let person_cards_display = document.getElementsByName('person-card-display')
+if(value==true){
+person_cards_display.forEach(element => {
+    element.style.display = 'block'
+});    
+}
+else{
+    person_cards_display.forEach(element => {
+        element.style.display = 'none'
+    });  
+}
+
+
+
+ })

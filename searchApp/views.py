@@ -35,3 +35,7 @@ def profileView(request):
 @login_required(login_url='/account/')
 def watchedView(request):
     return render(request, 'searchApp/watched_movies.html')
+
+
+def website_rec(request):
+    return render(request, 'searchApp/website_rec.html')

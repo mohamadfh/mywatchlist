@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import searchView, getMovieDetail, getTvDetail, profileView, watchedView
+from .views import *
 
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
     path('detail/tv/<id>', getTvDetail, name='tv_detail'),
     path('profile/', profileView, name='profile'),
     path('watched/', watchedView, name='watched'),
+    path('recommendation/', website_rec, name='website_rec')
 
 
 

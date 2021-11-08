@@ -46,7 +46,7 @@
       <div class="col-auto">
         <div class="form-check form-switch">
           <input
-          class="form-check-input" type="checkbox" id="person-include" 
+          class="form-check-input" type="checkbox" id="include-person" 
           >
           <label class="form-check-label main-font">Include Person</label>
         </div>
@@ -76,6 +76,8 @@
     
     {% verbatim %}
     <div class="row row-col-auto">
+
+
     {{#each results}}
 
 
@@ -84,15 +86,8 @@
 {{#if profile_path}}
 
 
-
-
-
-
-
-
-
-<div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
-  <div class="card mb-3 center-card card-hover" style="max-width: 700px;">
+<div name="person-card-display" class="col-xs-12 col-sm-6 col-md-12 col-lg-6" style="display: none;">
+  <div class="card mb-3 center-card card-hover" style="max-width: 600px;">
     <div class="row g-0">
       <div class="col-md-4">
         <a  target="_blank" href="{{getDetailUrl media_type id}}">
@@ -139,34 +134,26 @@
            
     
           {{/each}}
-</div> <!--End row-->
+ </div> <!--End row-->   
 
          {{/if}}
+     
         </div>
       </div>
     </div>
   </div>
+
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{/if}} <!--End if profile_path-->
-
 {{/if}} 
+
+
+
+
       {{#if poster_path}}
       <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
-        <div class="card mb-3 center-card card-hover" style="max-width: 700px;">
+        <div class="card mb-3 center-card card-hover" style="max-width: 600px;">
           <div class="row g-0">
             <div class="col-md-4">
               <a  target="_blank" href="{{getDetailUrl media_type id}}">
