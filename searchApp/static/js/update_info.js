@@ -158,3 +158,67 @@ Handlebars.registerHelper('titleSnippet',function(title){
     }
 return res
 })
+
+
+Handlebars.registerHelper('getDetailUrl',function(media_type,movieDB_id){
+    let url = '/search/'
+    if (media_type=='movie'){
+        url += 'movie/' + movieDB_id
+    }
+    if(media_type=='person'){
+        url+='person/'+movieDB_id
+    }
+    else{
+    if(media_type=='tv'){
+        url += 'tv/' + movieDB_id
+    }
+    }
+    
+        return url
+    })
+
+    Handlebars.registerHelper('getYear',function(release_date){
+        return release_date.slice(0,4);
+    });
+
+
+
+    Handlebars.registerHelper('getInfo',getInfoHandelbar)
+    function getInfoHandelbar(id){
+        
+        
+        let req = new XMLHttpRequest();
+        req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${id}?format=json`,true)
+        req.onload = function(){
+            //append checkboxs
+            
+       
+            if (req.status>=200 && req.status<400){
+                let data = JSON.parse(req.responseText)
+               //console.log(data)
+               let isMovieExist = data.isThereMovie
+               if (isMovieExist){
+                   movie = data.object
+                   if (movie.watched){
+                    document.getElementById('watched-'+id).checked = true;
+                   } 
+                   if(movie.bookmark){
+                    document.getElementById('bookmark-'+id).checked = true;
+    
+                   }
+               }
+               else {
+                   // console.log('movie was not in DataBase')
+               }
+                
+            }
+        
+        
+        else{
+            console.log('Unable to connect to server!')
+        }
+        }
+        req.send()
+        return ''
+    }
+    

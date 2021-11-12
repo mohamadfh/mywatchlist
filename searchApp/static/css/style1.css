@@ -69,14 +69,6 @@
     }
 }
 
-
-/* .card-body {
-    display: none;
-    position: absolute;
+.no-underline {
+    text-decoration: none;
 }
-
-.card-hover:hover .card-body {
-    display: block;
-    opacity: 1;
-    z-index: 2;
-} */

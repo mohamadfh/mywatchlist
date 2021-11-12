@@ -27,11 +27,22 @@
     
       
     <title>{% block title %}{% endblock title %}</title>
+    <script src="https://unpkg.com/darkreader@4.9.40/darkreader.js"></script>
+    {%getDarkModeInfo user.username as dark_mode%}
+    {%if dark_mode%}
+<script>
+  DarkReader.enable({
+    brightness: 100,
+    contrast: 90,
+    sepia: 10
+});
+</script>
+    {%endif%}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   </head>
 
-  <body id="body">
+  <body id="body" class="body-style">
     <input type="hidden" id="username" value="{{user.id}}">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -174,9 +185,30 @@
     <div id="toast">
 
     </div>
+    
  <script src="{% static 'js/update_info.js' %}"></script>
  <script src="{% static 'js/profile_info.js' %}"></script>
 
+ <style>
+  .blog-footer{
+    padding: 0.5rem 0;
+    color: #999;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+   width: 100%;
    
+  }
+  
+</style>
+
+
+  <footer class="blog-footer bottom-0 end-0 position-fixed1">
+    <p class="text-center">© 2021 <a class="no-underline" href="https://www.linkedin.com/in/amir-hossein-enayati/">eamirh</a> | API via  <a href="https://www.themoviedb.org/"><img style="width: 4.5em;" src="{% static 'moviedb.svg' %}" alt="moviedb-logo"></a></p>
+    
+  </footer>
+ 
   </body>
+ 
+
+
 </html>

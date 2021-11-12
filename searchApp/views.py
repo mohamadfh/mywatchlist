@@ -15,16 +15,12 @@ def searchView(request):
     return render(request, 'searchApp/search.html', {'lists': lists})
 
 
-def getTvDetail(request, id):
-    r = requests.get(
-        f'https://api.themoviedb.org/3/tv/{id}?api_key={API_KEY}&append_to_response=images')
-    return HttpResponse(r.json())
-
-
-def getMovieDetail(request, id):
-    r = requests.get(
-        f'https://api.themoviedb.org/3/movie/{id}?api_key={API_KEY}&append_to_response=images')
-    return HttpResponse(id)
+def detailMovie(request, media_type, movieDB_id):
+    arg = {
+        'media_type': media_type,
+        'id': movieDB_id
+    }
+    return render(request, 'searchApp/detail.html', arg)
 
 
 @login_required(login_url='/account/')

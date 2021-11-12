@@ -1,0 +1,35 @@
+.poster {
+    max-width: 20em;
+    margin: 0.5em;
+    box-shadow: 5px 5px 10px black;
+
+}
+
+.poster-seasons {
+    max-width: 13em;
+    margin: 0.5em;
+    box-shadow: 5px 5px 10px black;
+}
+
+.back-drop {
+    z-index: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    display: block;
+    width: 60em;
+    height: 100%;
+    float: right;
+    box-shadow: 5px 5px 10px black;
+
+}
+
+.center {
+
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    align-self: center;
+}

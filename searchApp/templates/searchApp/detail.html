@@ -1,9 +1,165 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load getInfoTag %}
-{% block title %}Detail{% endblock title %}
-{% block header %}{% endblock header %}
+{% block title %}
+MyWatchList{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/poster.css' %}">{% endblock header %}
 {% block content %}
+<input type="hidden" value="{{id}}" id="id-movie">
+<input type="hidden" value="{{media_type}}" id="media_type">
+<input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
+<div id="loading-gif" style="display: block">
+    <div class="wrapper">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+      <span>Loading</span>
+    </div>
+  </div>
+  
+<div class="container" id="container-detail"></div> 
+  <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
+  {% verbatim %}
 
+  <script id="titleTemplate" type="text/x-handlebars-template">
+    {{#if poster_path}} <!--if it was movie-->
+ 
+    <div class="row g-4">
+      <div class="card mb-3">
+        {{#if backdrop_path}}
+       <!-- <a href="#card-inside"><img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="card-img-top" alt="..."></a> -->
+       {{/if}}
+        <div class="card-body g-4">
+          <!--Start inside card-->
+          <div class="card mb-12" id="card-inside">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                
+              <a href="{{#if homepage}}{{homepage}}{{/if}}"><img class="poster" src="https://image.tmdb.org/t/p/original/{{poster_path}}"
+                 alt="{{#if title}}{{title}}{{else}}{{name}}{{/if}}"></a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{#if title}}{{title}}{{else}}{{name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}{{#if first_air_date}}{{getYear first_air_date}}{{/if}}</h5>
+                  <p class="card-text"><small class="text-muted">{{#each genres}}{{name}}, {{/each}}</small></p>
+                  <p class="card-text">vote : {{vote_average}}</p>
+                  
+                  {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
+                  {{#if tagline}}<p class="card-text main-font">{{tagline}}</p>{{/if}}
+                  {{#if in_production}}<p class="card-text">{{#if in_production}}In production{{else}}Ended{{/if}}</p>{{/if}}
+                  {{#if number_of_episodes}}<p class="card-text">{{number_of_episodes}} episodes</p>{{/if}}
+                  {{#if episode_run_time}}<p class="card-text">each episode {{episode_run_time}} mins</p>{{/if}}
+
+                  {{#if number_of_seasons}}<p class="card-text">{{number_of_seasons}} season</p>{{/if}}
+
+
+                 
+                  <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+                  <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+                  <div class="form-check form-switch">
+                    {{getInfo id}}  
+                    <input
+                    class="form-check-input" type="checkbox" id="watched-{{id}}"
+                     onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
+                     > 
+                    <label class="form-check-label  main-font">Watched</label>
+                  </div>
+                  
+                  <div class="form-check form-switch">
+                    <input
+                    class="form-check-input" type="checkbox" id="bookmark-{{id}}"
+                    onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
+                    >
+                    <label class="form-check-label  main-font">Bookmarked</label>
+                  </div>
+
+
+                  <p class="card-text"><small class="text-muted">{{#if status}}{{status}}{{/if}}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--End card inside-->
+        </div>
+      </div>
+    </div> <!--End row2-->
+
+{{#if seasons}}
+<div class="row g-3">
+  <h1 class="display-6 text-center">Seasons</h1>
+</div>
+<div class="row row-col-auto g-4"> <!--ROW3-->
+{{#each seasons}}
+<div class="col col-md-3 col-sm-6 col-lg-3 col-xs-12">
+<div class="card">
+  {{#if poster_path}}<img class="poster-seasons" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="{{name}}">{{/if}}
+  <div class="card-body">
+    <h5 class="card-title">{{name}}</h5>
+    <p class="card-text">{{episode_count}} episodes</p>
+    <p class="card-text"><small class="text-muted">{{air_date}}</small></p>
+  </div>
+</div>
+
+</div>
+
+{{/each}}
+</div> <!--End row3-->
+{{/if}}
+
+{{#if backdrop_path}}
+<div class="row g-3">
+  <h1 class="display-6 text-center">Gallery</h1>
+</div>
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="d-block w-100" alt="...">
+    </div>
+{{#with images }}
+{{#each backdrops}}
+    <div class="carousel-item">
+      <img src="https://image.tmdb.org/t/p/original/{{file_path}}" class="d-block w-100" alt="...">
+    </div>
+    {{/each}}
+    {{/with}}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{{/if}}
+
+
+{{/if}}
+{{#if profile_path}}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img class="poster" src="https://image.tmdb.org/t/p/original/{{profile_path}}"/>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">{{biography}}</p>
+        <p class="card-text"><small class="text-muted">{{known_for_department}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+  </script>
+  {% endverbatim %}
+
+<script src="{% static 'js/detail.js' %}"></script>
 
 {%endblock%}

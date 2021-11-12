@@ -68,6 +68,7 @@ btn_search.addEventListener('click',function(){
 //  1
 function Send_Request(query,include_adult=false,page=1,year=''){
     if (query!=''){
+        
         //hide others
         othersContainer.style.display = 'none'
         bestResultContainer.style.display = 'none'
@@ -165,7 +166,7 @@ let rawTemplate = document.getElementById('titleTemplate').innerHTML;
 let compiledTemplate = Handlebars.compile(rawTemplate);
 let generetedHTML = compiledTemplate(data);
 bestResultContainer.innerHTML = generetedHTML;
-
+showHidePerson()
 };
 
 // Helper HB functions
@@ -223,12 +224,12 @@ return lastPage;
 
 
 Handlebars.registerHelper('getDetailUrl',function(media_type,id){
-let url = '/'
+let url = ''
 if (media_type=='movie'){
-    url += 'm/' + id
+    url += 'movie/' + id
 }
 if(media_type=='person'){
-    url+='p/'+id
+    url+='person/'+id
 }
 else{
 if(media_type=='tv'){
@@ -357,8 +358,11 @@ return document.getElementById('include-person').checked
   })
 
 
-document.getElementById('include-person').addEventListener('change',function () { 
-let value = document.getElementById('include-person').checked
+document.getElementById('include-person').addEventListener('change',showHidePerson)
+
+
+ function showHidePerson(){
+  let value = document.getElementById('include-person').checked
 let person_cards_display = document.getElementsByName('person-card-display')
 if(value==true){
 person_cards_display.forEach(element => {
@@ -370,7 +374,5 @@ else{
         element.style.display = 'none'
     });  
 }
-
-
-
- })
+   
+ }
