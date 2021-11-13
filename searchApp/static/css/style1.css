@@ -72,3 +72,14 @@
 .no-underline {
     text-decoration: none;
 }
+
+
+
+.movie-icon {
+    position: absolute;
+    float: right;
+    right: 0;
+    margin: 2px;
+    width: 1em;
+
+}

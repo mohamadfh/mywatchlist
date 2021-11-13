@@ -14,6 +14,44 @@ function renderHTML(data){
     let generetedHTML = compiledTemplate(data);
     container.innerHTML = generetedHTML;
     console.log(data)
+
+
+    // only movie and only tv
+    let onlyMovie = document.getElementById('only-movie')
+    let onlyTv = document.getElementById('only-tv')
+
+onlyMovie.addEventListener('change',function(){
+    if(onlyMovie.checked==true){
+        //hide just tv
+        let tvs = document.getElementsByClassName('only-tv')
+        for(let i=0;i<tvs.length;i++){
+            tvs[i].style.display = 'none'
+        }
+    }
+    else{
+        let tvs = document.getElementsByClassName('only-tv')
+        for(let i=0;i<tvs.length;i++){
+            tvs[i].style.display = 'block'
+        }  
+    }
+})
+
+onlyTv.addEventListener('change',function(){
+    if(onlyTv.checked==true){
+        //hide just tv
+        let movies = document.getElementsByClassName('only-movie')
+        for(let i=0;i<movies.length;i++){
+            movies[i].style.display = 'none'
+        }
+    }
+    else{
+        let movies = document.getElementsByClassName('only-movie')
+        for(let i=0;i<movies.length;i++){
+            movies[i].style.display = 'block'
+        }  
+    }
+})
+
     };
 
 
@@ -39,6 +77,7 @@ function renderHTML(data){
                     if (request.status>=200 && request.status<400){
                 let data = JSON.parse(request.responseText)
                 console.log(data.length)
+                
                 if(data.length==0){
                     container.innerHTML = `<h1 class="display-6">You have no Bookmarks Yet ...</h1>`
                 }
@@ -117,6 +156,7 @@ Handlebars.registerHelper('getNumberMovies',function(data){
 
     return data.length
 })
+
 
 
     
