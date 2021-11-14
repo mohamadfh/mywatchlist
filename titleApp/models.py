@@ -43,5 +43,8 @@ class TitleMovie(models.Model):
     poster_path = models.CharField(max_length=850, blank=True, null=True)
     backdrop_path = models.CharField(max_length=850, blank=True, null=True)
 
+    def __str__(self):
+        return self.title_movie
+
     class Meta:
         ordering = ['date_added']

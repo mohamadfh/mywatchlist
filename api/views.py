@@ -2,6 +2,7 @@ from django.db.models.query import QuerySet
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.http import JsonResponse
+from explore.views import bookmarkFriend
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from titleApp.models import Lists, TitleMovie
@@ -147,3 +148,35 @@ def getPublicProfile(request):
     serializer = ProfileInfoSerializer(
         public_profiles, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def importMovies(request):
+    type_import = request.data['type']
+    username_friend = request.data['username_friend']
+    user = request.user
+    print(type_import, username_friend)
+    if(type_import == 'bookmark'):
+        movies = TitleMovie.objects.filter(
+            user=username_friend, bookmark=True, watched=False)
+    elif(type_import == 'watched'):
+        movies = TitleMovie.objects.filter(user=username_friend, watched=True)
+
+    if movies != None:
+        # Save as bookmark for me
+        for movie in movies:
+            try:
+                TitleMovie.objects.get(user=user, movieDB_id=movie.movieDB_id)
+            except:
+                film = TitleMovie.objects.create(
+                    user=user,
+                    title_movie=movie.title_movie,
+                    movieDB_id=movie.movieDB_id,
+                    media_type=movie.media_type,
+                    poster_path=movie.poster_path,
+                    backdrop_path=movie.backdrop_path,
+                    bookmark=True
+                )
+                film.save()
+
+    return Response(request.data)

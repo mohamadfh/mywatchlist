@@ -6,4 +6,5 @@ urlpatterns = [
     path('<str:username>/bookmark', bookmarkFriend, name='bookmark-friend'),
     path('<str:username>/watched', watchedFriend, name='watched-friend'),
 
+
 ]

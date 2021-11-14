@@ -18,7 +18,8 @@ urlpatterns = [
     path('get-user/', getUser),
     path('delete-movie/<int:movieDB_id>', deleteMovie),
     path('get-profile-info/', getProfileInfo),
-    path('get-public-profiles/', getPublicProfile)
+    path('get-public-profiles/', getPublicProfile),
+    path('import/', importMovies)
 
 
 ]
