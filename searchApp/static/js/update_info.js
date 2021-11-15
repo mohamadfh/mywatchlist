@@ -224,17 +224,114 @@ Handlebars.registerHelper('getDetailUrl',function(media_type,movieDB_id){
     
 
 
-//Implant dark mode immidatly
-document.getElementById('dark-mode').addEventListener('change',function(){
-    let darkMode = document.getElementById('dark-mode').checked
-    if(darkMode==true){
-        DarkReader.enable({
-            brightness: 100,
-            contrast: 90,
-            sepia: 10
-        });
+    Handlebars.registerHelper('getYear',function(release_date){
+        return release_date.slice(0,4);
+    });
+    
+    Handlebars.registerHelper('getSnippet',function(overview){
+    let snippet = overview.slice(0,100);
+    if (overview.length>100){
+        snippet += ' ...'
+    }
+    return snippet;
+    
+    });
+    
+    Handlebars.registerHelper('getMedia_type',function(media_type){
+    let iconSrc = '';
+    
+    if (media_type=='movie'){
+        iconSrc += '/static/film.svg'
+    }
+    if(media_type == 'tv') {
+        iconSrc += '/static/tv.svg'
+    }
+    if(media_type=='person'){
+    iconSrc += '/static/person.png'
+    }
+    return iconSrc;
+    })
+    
+    
+    
+    Handlebars.registerHelper('getPages',function(total_pages,page,options){
+    let isThereMorePages = false;
+    if (total_pages>page){
+        isThereMorePages = true;
     }
     else{
-        DarkReader.disable()
+        isThereMorePages = false;
     }
-})
+    return isThereMorePages;
+    });
+    
+    Handlebars.registerHelper('isThereLastPage',function(page){
+    let lastPage = false;
+    if (page>1){
+        lastPage = true;
+    }
+    else{
+        lastPage = false
+    }
+    return lastPage;
+    });
+    
+    
+    Handlebars.registerHelper('getDetailUrl',function(media_type,id){
+    let url = ''
+    if (media_type=='movie'){
+        url += 'movie/' + id
+    }
+    if(media_type=='person'){
+        url+='person/'+id
+    }
+    else{
+    if(media_type=='tv'){
+        url += 'tv/' + id
+    }
+    }
+    
+        return url
+    })
+    
+    
+    
+    Handlebars.registerHelper('getInfo',getInfoHandelbar)
+    function getInfoHandelbar(movieDB_id,title){
+        
+        
+        let req = new XMLHttpRequest();
+        req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
+        req.onload = function(){
+            //append checkboxs
+            
+       
+            if (req.status>=200 && req.status<400){
+                let data = JSON.parse(req.responseText)
+               //console.log(data)
+               let isMovieExist = data.isThereMovie
+               if (isMovieExist){
+                   movie = data.object
+                   if (movie.watched){
+                    document.getElementById('watched-'+movieDB_id).checked = true;
+                   } 
+                   if(movie.bookmark){
+                    document.getElementById('bookmark-'+movieDB_id).checked = true;
+    
+                   }
+               }
+               else {
+                   // console.log('movie was not in DataBase')
+               }
+                
+            }
+        
+        
+        else{
+            console.log('Unable to connect to server!')
+        }
+        }
+        req.send()
+        return ''
+    }
+    

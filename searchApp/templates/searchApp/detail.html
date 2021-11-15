@@ -4,7 +4,8 @@
 {% block title %}
 MyWatchList{% endblock title %}
 {% block header %}
-<link rel="stylesheet" href="{% static 'css/poster.css' %}">{% endblock header %}
+<link rel="stylesheet" href="{% static 'css/poster.css' %}">
+{% endblock header %}
 {% block content %}
 <input type="hidden" value="{{id}}" id="id-movie">
 <input type="hidden" value="{{media_type}}" id="media_type">
@@ -22,9 +23,57 @@ MyWatchList{% endblock title %}
   </div>
   
 <div class="container" id="container-detail"></div> 
+<div class="container" id="container-movie-person"></div> 
+
   <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
   {% verbatim %}
-
+  <script id="titleTemplate2" type="text/x-handlebars-template">
+    <div class="row row-col-4 g-3">
+    {{#each cast}}
+    {{#if poster_path}}
+    {{getInfo id}}
+    <input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
+    <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+    <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+     <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+       
+     <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
+       <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+        class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
+        loading='lazy'>
+     
+        <div class="overlay"></div>
+        <div class="card-body center card-body2">
+         <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
+          {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}}
+           
+          </a></h5>
+         <div class="form-check form-switch ">
+           <input
+           
+           class="form-check-input " type="checkbox" id="watched-{{id}}"
+           onchange="updateInfo('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+           <label class="form-check-label main-font">Watched</label>
+         </div>
+         
+         <div class="form-check form-switch">
+           <input
+            
+             class="form-check-input"  type="checkbox" id="bookmark-{{id}}"
+             onchange="updateInfo('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+           <label class="form-check-label main-font">Bookmarked</label>
+         </div>
+         <p><small class="text-muted main-font">{{media_type}}</small></p>
+         <p><small class="text-muted date-added">{{#if release_date}}{{getYear release_date}}{{/if}}</small></p>
+         
+       </div>
+     </div>
+   
+   </div> <!--End Col-->  
+   {{/if}}
+     {{/each}}
+    </div>
+  </script>
   <script id="titleTemplate" type="text/x-handlebars-template">
     {{#if poster_path}} <!--if it was movie-->
  
@@ -49,7 +98,7 @@ MyWatchList{% endblock title %}
                   <p class="card-text">vote : {{vote_average}}</p>
                   
                   {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
-                  {{#if tagline}}<p class="card-text main-font">{{tagline}}</p>{{/if}}
+                  {{#if tagline}}<p class="card-text main-font big-font">{{tagline}}</p>{{/if}}
                   {{#if in_production}}<p class="card-text">{{#if in_production}}In production{{else}}Ended{{/if}}</p>{{/if}}
                   {{#if number_of_episodes}}<p class="card-text">{{number_of_episodes}} episodes</p>{{/if}}
                   {{#if episode_run_time}}<p class="card-text">each episode {{episode_run_time}} mins</p>{{/if}}

@@ -29,5 +29,7 @@ function importMovies(type){
             "username_friend":username,
             "type":type
         })
+    }).then(()=>{
+        alert_toast(friend_name+"'s movies has been imported!")
     })
 }

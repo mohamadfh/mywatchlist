@@ -50,3 +50,18 @@ function updateProfileSetting(){
 }
 
 
+
+//Implant dark mode immidatly
+document.getElementById('dark-mode').addEventListener('change',function(){
+    let darkMode = document.getElementById('dark-mode').checked
+    if(darkMode==true){
+        DarkReader.enable({
+            brightness: 100,
+            contrast: 90,
+            sepia: 10
+        });
+    }
+    else{
+        DarkReader.disable()
+    }
+})

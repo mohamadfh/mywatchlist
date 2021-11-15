@@ -68,7 +68,3 @@ def watchedFriend(request, username):
         'watched_count': len(watched),
     }
     return render(request, 'explore/watched_friend.html', context)
-
-
-# def importMovies(request, username, type):
-#     print(username, type)

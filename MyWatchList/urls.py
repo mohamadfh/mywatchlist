@@ -10,5 +10,6 @@ urlpatterns = [
     path('account/', include('accountsApp.urls')),
     path('title/', include('titleApp.urls')),
     path('api/', include('api.urls')),
-    path('explore/', include('explore.urls'))
+    path('explore/', include('explore.urls')),
+    path('', include('homeApp.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # to access us to the image url
