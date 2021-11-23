@@ -3,7 +3,6 @@
 {% load static %}
 {% load getInfoTag %}
 {% block header %}
-
 {% endblock header %}
   
 {% block content %}
@@ -72,11 +71,60 @@
   {% endverbatim %}
    
   <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
-  
+  {% verbatim %}
+  <script id="titleTemplateTrending" type="text/x-handlebars-template">
+<!--Show trending movies-->
+<div class="row row-col-auto">
+  <link rel="stylesheet" href="{% static 'css/profile_card.css' %}">
+
+{{#each results}}
+<input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
+ <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+ <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+  <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+    
+  <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
+    <a class="no-underline" href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+     class="card-img-top img-fluid rounded-start center " alt="Use Vpn"> </a>
+     {{getInfo id}}  
+
+     
+     <div class="card-body center">
+      <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">{{#if title}}{{title}}{{else}}{{name}}{{/if}}</a></h5>
+      <div class="form-check form-switch ">
+        <input
+        class="form-check-input " type="checkbox" id="watched-{{id}}"
+        onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
+        > 
+        
+        <label class="form-check-label main-font">Watched</label>
+      </div>
+      
+      <div class="form-check form-switch">
+        <input
+          class="form-check-input"  type="checkbox" id="bookmark-{{id}}"
+          onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
+          > 
+        
+        <label class="form-check-label main-font">Bookmarked</label>
+      </div>
+      <p><small class="text-muted main-font">{{media_type}}</small></p>
+      
+    </div>
+  </div>
+
+</div> <!--End Col-->
+
+
+
+{{/each}}
+</div>
+
+  </script>
  
   <script id="titleTemplate" type="text/x-handlebars-template">
     
-    {% verbatim %}
+    
     <div class="row row-col-auto">
 
 
@@ -92,7 +140,7 @@
   <div class="card mb-3 center-card card-hover" style="max-width: 600px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <a  target="_blank" href="{{getDetailUrl media_type id}}">
+        <a  href="{{getDetailUrl media_type id}}">
          
           <img src="https://image.tmdb.org/t/p/w500/{{profile_path}}"
          class="img-fluid rounded-start center rounded" alt="{{name}}" loading="lazy">

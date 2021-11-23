@@ -27,61 +27,158 @@ MyWatchList{% endblock title %}
 
   <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
   {% verbatim %}
+  <!--render persons credit movies-->
   <script id="titleTemplate2" type="text/x-handlebars-template">
-    <div class="row row-col-4 g-3">
-    {{#each cast}}
-    {{#if poster_path}}
-    {{getInfo id}}
-    <input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
-    <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
-    <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
-     <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+    <!--Start accordion-->
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            As Cast
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+           
+
+            <div class="row row-col-4 g-3">
+              {{#each cast}}
+              {{#if poster_path}}
+              {{getInfoCast id}}
+              <input type="hidden" id="media_type-cast-{{id}}" value="{{media_type}}">
+              <input type="hidden" id="poster_path-cast-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+              <input type="hidden" id="backdrop_path-cast-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+               <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+                 
+               <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
+                <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+                  class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
+                  loading='lazy'></a>
+               
+                  <div class="overlay"></div>
+                  <div class="card-body center card-body2">
+                   <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
+                    {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}}
+                     
+                    </a></h5>
+                   <div class="form-check form-switch ">
+                     <input
+                     
+                     class="form-check-input " type="checkbox" id="watched-cast-{{id}}"
+                     onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+                     <label class="form-check-label main-font">Watched</label>
+                   </div>
+                   
+                   <div class="form-check form-switch">
+                     <input
+                      
+                       class="form-check-input"  type="checkbox" id="bookmark-cast-{{id}}"
+                       onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+                     <label class="form-check-label main-font">Bookmarked</label>
+                   </div>
+                   <p><small style="font-size: 1em;" class="text-muted main-font">{{media_type}}</small></p>
+                   <p><small class="text-muted date-added">{{#if release_date}}{{getYear release_date}}{{/if}}</small></p>
+                   
+                 </div>
+               </div>
+             
+             </div> <!--End Col-->  
+             {{/if}}
+               {{/each}}
+              </div>
+
+
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            As Crew
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <div class="row row-col-4 g-3">
+              {{#each crew}}
+              {{#if poster_path}}
+              
+              {{#if (known_for_departmentFilter job)}}
+              {{getInfoCrew id}}
+              <input type="hidden" id="media_type-crew-{{id}}" value="{{media_type}}">
+              <input type="hidden" id="poster_path-crew-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+              <input type="hidden" id="backdrop_path-crew-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+               <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+                 
+               <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
+                <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+                  class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
+                  loading='lazy'></a>
+               
+                  <div class="overlay"></div>
+                  <div class="card-body center card-body2">
+                   <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
+                    {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}
+                     
+                    </a></h5>
+                    
+                   <div class="form-check form-switch ">
+                     <input
+                     
+                     class="form-check-input " type="checkbox" id="watched-crew-{{id}}"
+                     onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+                     <label class="form-check-label main-font">Watched</label>
+                   </div>
+                   
+                   <div class="form-check form-switch">
+                     <input
+                      
+                       class="form-check-input"  type="checkbox" id="bookmark-crew-{{id}}"
+                       onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
+                     <label class="form-check-label main-font">Bookmarked</label>
+                   </div>
+                   <p><small style="font-size: 1em;" class="text-muted main-font">{{media_type}}</small></p>
+                   <p><small class="text-muted date-added">{{#if job}}{{job}}{{/if}}</small></p>
+                   
+                 </div>
+               </div>
+             
+             </div> <!--End Col-->  
+             {{/if}} <!--End if known_for_departmentFilter-->
+             {{/if}}
+             
+               {{/each}}
+              </div>
+             
+
+
+
+
+
+
+          </div>
+          
+        </div>
        
-     <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
-       <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
-        class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
-        loading='lazy'>
-     
-        <div class="overlay"></div>
-        <div class="card-body center card-body2">
-         <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
-          {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}}
-           
-          </a></h5>
-         <div class="form-check form-switch ">
-           <input
-           
-           class="form-check-input " type="checkbox" id="watched-{{id}}"
-           onchange="updateInfo('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
-           <label class="form-check-label main-font">Watched</label>
-         </div>
-         
-         <div class="form-check form-switch">
-           <input
-            
-             class="form-check-input"  type="checkbox" id="bookmark-{{id}}"
-             onchange="updateInfo('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
-           <label class="form-check-label main-font">Bookmarked</label>
-         </div>
-         <p><small class="text-muted main-font">{{media_type}}</small></p>
-         <p><small class="text-muted date-added">{{#if release_date}}{{getYear release_date}}{{/if}}</small></p>
-         
-       </div>
-     </div>
-   
-   </div> <!--End Col-->  
-   {{/if}}
-     {{/each}}
+      </div>
+      
     </div>
+
+    <!--End accordion-->
+   
   </script>
+    <!--END!! render persons credit movies-->
+
   <script id="titleTemplate" type="text/x-handlebars-template">
     {{#if poster_path}} <!--if it was movie-->
- 
+
+    {{getInfo id}}
     <div class="row g-4">
+       
       <div class="card mb-3">
-        {{#if backdrop_path}}
-       <!-- <a href="#card-inside"><img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="card-img-top" alt="..."></a> -->
-       {{/if}}
+        
         <div class="card-body g-4">
           <!--Start inside card-->
           <div class="card mb-12" id="card-inside">
@@ -96,7 +193,7 @@ MyWatchList{% endblock title %}
                   <h5 class="card-title">{{#if title}}{{title}}{{else}}{{name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}{{#if first_air_date}}{{getYear first_air_date}}{{/if}}</h5>
                   <p class="card-text"><small class="text-muted">{{#each genres}}{{name}}, {{/each}}</small></p>
                   <p class="card-text">vote : {{vote_average}}</p>
-                  
+                  <p class="card-text">Director : <a href="">{{getDirector credits}}</a></p>
                   {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
                   {{#if tagline}}<p class="card-text main-font big-font">{{tagline}}</p>{{/if}}
                   {{#if in_production}}<p class="card-text">{{#if in_production}}In production{{else}}Ended{{/if}}</p>{{/if}}
@@ -110,7 +207,6 @@ MyWatchList{% endblock title %}
                   <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
                   <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
                   <div class="form-check form-switch">
-                    {{getInfo id}}  
                     <input
                     class="form-check-input" type="checkbox" id="watched-{{id}}"
                      onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
@@ -145,7 +241,7 @@ MyWatchList{% endblock title %}
 {{#each seasons}}
 <div class="col col-md-3 col-sm-6 col-lg-3 col-xs-12">
 <div class="card">
-  {{#if poster_path}}<img class="poster-seasons" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="{{name}}">{{/if}}
+  {{#if poster_path}}<img loading="lazy" class="poster-seasons" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="{{name}}">{{/if}}
   <div class="card-body">
     <h5 class="card-title">{{name}}</h5>
     <p class="card-text">{{episode_count}} episodes</p>
@@ -158,35 +254,114 @@ MyWatchList{% endblock title %}
 {{/each}}
 </div> <!--End row3-->
 {{/if}}
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Cast
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <!--Row4 for cast member-->
+<div class="row g-3 row-col-auto">
+  {{#if credits}}
+  {{#with credits}}
+  {{#each cast}}
+  {{#if profile_path}}
 
-{{#if backdrop_path}}
-<div class="row g-3">
-  <h1 class="display-6 text-center">Gallery</h1>
-</div>
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="d-block w-100" alt="...">
+  <div class="col col-md-3 col-lg-2 col-sm-4">
+    <div class="card ">
+      <a href="{{getDetailUrlPerson id}}">
+      <img loading='lazy' class="card-img-top cast-img text-center" src="https://image.tmdb.org/t/p/w300/{{profile_path}}" alt="Card image cap">
+      </a><div class="card-body">
+        <p class="card-text">{{name}}</p>
+        <p><small class="text-muted">{{character}}</small></p>
+      </div>
     </div>
-{{#with images }}
-{{#each backdrops}}
-    <div class="carousel-item">
-      <img src="https://image.tmdb.org/t/p/original/{{file_path}}" class="d-block w-100" alt="...">
-    </div>
-    {{/each}}
-    {{/with}}
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+  {{/if}}
+  {{/each}}
+  {{/with}}
+  {{/if}}
+  </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Crew
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+<div class="row g-3 row-col-auto">
+  {{#if credits}}
+  {{#with credits}}
+  {{#each crew}}
+  {{#if profile_path}}
+  <div class="col col-md-3 col-lg-2 col-sm-4">
+    <div class="card ">
+      <a href="{{getDetailUrlPerson id}}">
+
+      <img loading='lazy' class="card-img-top cast-img text-center" src="https://image.tmdb.org/t/p/w300/{{profile_path}}" alt="Card image cap">
+      </a>  <div class="card-body">
+        <p class="card-text">{{name}}</p>
+        <p><small class="text-muted">{{job}}</small></p>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  {{/each}}
+  {{/with}}
+  {{/if}}
+  </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Gallery
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        {{#if backdrop_path}}
+        <div class="row g-3">
+          <h1 class="display-6 text-center">Gallery <span class="main-font">({{getGalleryNumber images}})</span></h1>
+        </div>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade center" data-bs-ride="carousel" style="width: 60em;">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="d-block w-100" alt="...">
+            </div>
+        {{#with images }}
+        {{#each backdrops}}
+            <div class="carousel-item">
+              <img src="https://image.tmdb.org/t/p/original/{{file_path}}" class="d-block w-100" alt="...">
+            </div>
+            {{/each}}
+            {{/with}}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </div>
 
-{{/if}}
+
 
 
 {{/if}}
@@ -201,6 +376,15 @@ MyWatchList{% endblock title %}
         <h5 class="card-title">{{name}}</h5>
         <p class="card-text">{{biography}}</p>
         <p class="card-text"><small class="text-muted">{{known_for_department}}</small></p>
+        <input type="hidden" value="{{known_for_department}}" id="known_for_department-id">
+        <div class="col">
+          {{#with external_ids}}
+        {{#if instagram_id}}  <a href="https://www.instagram.com/{{instagram_id}}"><i class="bi bi-instagram"></i></a>{{/if}}
+        {{#if facebook_id}} <a href="https://www.facebook.com/{{facebook_id}}"><i class="bi bi-facebook"></i></a>{{/if}}
+        {{#if twitter_id}} <a href="http://twitter.com/{{twitter_id}}"><i class="bi bi-twitter"></i></a>{{/if}}
+        {{#if imdb_id}} <a href="https://www.imdb.com/name/{{imdb_id}}"><img style="width: 1.4em;" src="/static/imdb.svg" alt=""></a>{{/if}}
+          {{/with}}
+        </div>
       </div>
     </div>
   </div>

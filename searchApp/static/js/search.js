@@ -266,3 +266,21 @@ else{
 }
    
  }
+
+
+
+ fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${APIKey}`).then(r=>r.json()).then((res)=>{
+     renderHTMLTrending(res)
+     console.log(res)
+ })
+
+
+ // Trending in Discover
+ function renderHTMLTrending(data){
+    //bestResultContainer.innerHTML = ''
+    let rawTemplate = document.getElementById('titleTemplateTrending').innerHTML;
+    let compiledTemplate = Handlebars.compile(rawTemplate);
+    let generetedHTML = compiledTemplate(data);
+    bestResultContainer.innerHTML = generetedHTML;
+   
+    };

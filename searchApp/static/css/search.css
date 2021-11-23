@@ -42,6 +42,7 @@ body {
 .main-font {
     font-family: 'Fira Sans', sans-serif;
     font-family: 'Indie Flower', cursive;
+    font-size: 1em;
 }
 
 .date-added {
@@ -61,4 +62,13 @@ body {
 
 .main-font-2 {
     font-family: 'Zen Old Mincho', serif;
+}
+
+
+
+.cast-img {
+
+    max-width: 9em;
+    align-self: center;
+
 }
