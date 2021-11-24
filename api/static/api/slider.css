@@ -35,7 +35,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: blueviolet no-repeat center/cover;
+  background: rgba(137, 43, 226, 0.411) no-repeat center/cover;
   background-blend-mode: overlay;
   font-family: arial;
   font-weight: bold;
@@ -57,23 +57,23 @@ body {
 }
 
 .C-slide:nth-child(1) {
-  background-image: url(https://picsum.photos/1480/800?image=11);
+  background-image: url(/static/slide3.jpg);
 }
 
 .C-slide:nth-child(2) {
-  background-image: url(https://picsum.photos/1480/800?image=22);
+  background-image: url(/static/slide4.png);
 }
 
 .C-slide:nth-child(3) {
-  background-image: url(https://picsum.photos/1480/800?image=33);
+  background-image: url(/static/slide1.jpg);
 }
 
 .C-slide:nth-child(4) {
-  background-image: url(https://picsum.photos/1480/800?image=44);
+  background-image: url(/static/slide2.jpg);
 }
 
 .C-slide:nth-child(5) {
-  background-image: url(https://picsum.photos/1480/800?image=55);
+  background-image: url(/static/slide5.jpg);
 }
 
 .C-navigation {
