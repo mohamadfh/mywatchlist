@@ -1,7 +1,7 @@
 var BASE_URL = 'http://127.0.0.1:8000/api/'
 let darkModeBox = document.getElementById('dark-mode')
 let privateBox = document.getElementById('private')
-
+let aRatedFilterBox = document.getElementById('include-adult-premision')
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -27,8 +27,10 @@ fetch(`${BASE_URL}get-profile-info/`, {
         'X-CSRFToken':csrftoken,
     }
 }).then((res)=>res.json()).then((data)=>{
+    console.log(data)
 darkModeBox.checked = data.darkMode
 privateBox.checked = data.private
+aRatedFilterBox.checked = data.aRatedFilter
 
 })
 
@@ -42,7 +44,9 @@ function updateProfileSetting(){
         },
         body:JSON.stringify({"darkMode":document.getElementById('dark-mode').checked,
          "private":document.getElementById('private').checked,
-         "user":document.getElementById('username').value
+        "aRatedFilter":document.getElementById('include-adult-premision').checked,
+         "user":document.getElementById('username').value,
+         
     })
     }).then(()=>{
         alert_toast('Setting got Updated')

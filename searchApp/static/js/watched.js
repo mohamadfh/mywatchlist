@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000/api/'
+var BASE_URL = 'http://127.0.0.1:8000/api/'
 let container = document.getElementById('container-profile')
 let loadingGif = document.getElementById('loading-gif')
 let othersContainer = document.getElementById('others')
@@ -14,6 +14,44 @@ function renderHTML(data){
     let generetedHTML = compiledTemplate(data);
     container.innerHTML = generetedHTML;
     console.log(data)
+
+
+    // only movie and only tv
+    let onlyMovie = document.getElementById('only-movie')
+    let onlyTv = document.getElementById('only-tv')
+
+onlyMovie.addEventListener('change',function(){
+    if(onlyMovie.checked==true){
+        //hide just tv
+        let tvs = document.getElementsByClassName('only-tv')
+        for(let i=0;i<tvs.length;i++){
+            tvs[i].style.display = 'none'
+        }
+    }
+    else{
+        let tvs = document.getElementsByClassName('only-tv')
+        for(let i=0;i<tvs.length;i++){
+            tvs[i].style.display = 'block'
+        }  
+    }
+})
+
+onlyTv.addEventListener('change',function(){
+    if(onlyTv.checked==true){
+        //hide just tv
+        let movies = document.getElementsByClassName('only-movie')
+        for(let i=0;i<movies.length;i++){
+            movies[i].style.display = 'none'
+        }
+    }
+    else{
+        let movies = document.getElementsByClassName('only-movie')
+        for(let i=0;i<movies.length;i++){
+            movies[i].style.display = 'block'
+        }  
+    }
+})
+
     };
 
 
@@ -39,8 +77,9 @@ function renderHTML(data){
                     if (request.status>=200 && request.status<400){
                 let data = JSON.parse(request.responseText)
                 console.log(data.length)
+                
                 if(data.length==0){
-                    container.innerHTML = `<h1 class="display-6">You have not watched any movies Yet ...</h1>`
+                    container.innerHTML = `<h1 class="display-6">You have no Bookmarks Yet ...</h1>`
                 }
                 
                 
@@ -55,7 +94,7 @@ function renderHTML(data){
                     othersContainer.innerHTML = `
                     <div class="row row-col-auto">
                     <div class="center-btn" style="margin: 2em;align-self:center;">
-        <div class="col-md-5 center-card"><p class="h2">No watched</p></div>
+        <div class="col-md-5 center-card"><p class="h2">No Bookmark</p></div>
         </div>
                     <div class="col-md-4 center-card">
                     <img class="img-fluid center-card" src="/static/No data-amico.svg" alt="no data">
@@ -117,3 +156,7 @@ Handlebars.registerHelper('getNumberMovies',function(data){
 
     return data.length
 })
+
+
+
+    

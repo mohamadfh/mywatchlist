@@ -35,14 +35,24 @@
        
       </div><!--end of col-->
       <div class="row">
+        
+        
+
       <div class="col-auto">
         <div class="form-check form-switch">
           <input
+          {% endverbatim %}
+        {%if profile.aRatedFilter%}
+        {%else%}
+          disabled
+          {%endif%}
+      {% verbatim %}
           class="form-check-input" type="checkbox" id="include-adult" 
           >
           <label class="form-check-label">Include A Retad</label>
         </div>
       </div>
+      
       <div class="col-auto">
         <div class="form-check form-switch">
           <input
@@ -108,7 +118,8 @@
         
         <label class="form-check-label main-font">Bookmarked</label>
       </div>
-      <p><small class="text-muted main-font">{{media_type}}</small></p>
+      <span class="badge rounded-pill bg-success">{{media_type}}</span>
+
       
     </div>
   </div>

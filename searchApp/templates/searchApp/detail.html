@@ -76,7 +76,8 @@ MyWatchList{% endblock title %}
                        onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Bookmarked</label>
                    </div>
-                   <p><small style="font-size: 1em;" class="text-muted main-font">{{media_type}}</small></p>
+                   <span class="badge rounded-pill bg-success">{{media_type}}</span>
+
                    <p><small class="text-muted date-added">{{#if release_date}}{{getYear release_date}}{{/if}}</small></p>
                    
                  </div>
@@ -139,7 +140,8 @@ MyWatchList{% endblock title %}
                        onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Bookmarked</label>
                    </div>
-                   <p><small style="font-size: 1em;" class="text-muted main-font">{{media_type}}</small></p>
+                   <span class="badge rounded-pill bg-success">{{media_type}}</span>
+
                    <p><small class="text-muted date-added">{{#if job}}{{job}}{{/if}}</small></p>
                    
                  </div>

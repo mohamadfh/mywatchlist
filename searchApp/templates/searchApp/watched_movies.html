@@ -7,60 +7,77 @@
 {% verbatim %}
 
 
-  <div class="container" id="container-profile">
+<div class="container" id="container-profile">
     
-    <div id="loading-gif" style="display: block">
-      <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <span>Loading</span>
-      </div>
-    
+  <div id="loading-gif" style="display: block">
+    <div class="wrapper">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+      <div class="shadow"></div>
+      <span>Loading</span>
     </div>
-    <div id="others"></div>
   
- 
-
-  <script id="titleTemplate" type="text/x-handlebars-template">
-    <div class="row row-col-4 g-3">
-      
-      <h1 class="display-6">My Watched <span class="number-movies">({{getNumberMovies this}})</span></h1>
-    
-  {{#each this}}
-  <input type="hidden" id="media_type-{{movieDB_id}}" value="{{media_type}}">
- <input type="hidden" id="poster_path-{{movieDB_id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
- <input type="hidden" id="backdrop_path-{{movieDB_id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-    
-  <div class="card mb-4 center card-hover" style="max-width: 18rem;">
-    <img src="{{poster_path}}"
-     class="card-img-top img-fluid rounded-start center" alt="...">
-     <div class="overlay"></div>
-     <div class="card-body center">
-      <h5 class="card-title">{{title_movie}}</h5>
-      <div class="form-check form-switch ">
-        <input
-        {{#if watched}}checked{{/if}}
-        class="form-check-input " type="checkbox" id="watched-{{movieDB_id}}"
-        onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)"> 
-        <label class="form-check-label">Watched</label>
-      </div>
-      
-      <div class="form-check form-switch">
-        <input
-         {{#if bookmark}}checked{{/if}}
-          class="form-check-input"  type="checkbox" id="bookmark-{{movieDB_id}}"
-          onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)">
-        <label class="form-check-label">Bookmarked</label>
-      </div>
-      <p><small class="text-muted date-added">{{date_added}} added</small></p>
-      
-    </div>
   </div>
+  <div id="others"></div>
+
+
+
+<script id="titleTemplate" type="text/x-handlebars-template">
+  <div class="row row-col-4 g-3">
+    
+    <h1 class="display-6">Movies i Watched <span class="number-movies">({{getNumberMovies this}})</span>
+     
+    </h1>
+    <div class="row">
+      <div class="form-check form-switch ">
+      <input
+      class="form-check-input " type="checkbox" id="only-movie"> 
+      <label class="form-check-label main-font">Only movies</label>
+    </div>
+    
+    <div class="form-check form-switch ">
+      <input
+      class="form-check-input " type="checkbox" id="only-tv"> 
+      <label class="form-check-label main-font">Only tv-shows</label>
+    </div>
+    </div>
+    
+{{#each this}}
+<input type="hidden" id="media_type-{{movieDB_id}}" value="{{media_type}}">
+<input type="hidden" id="poster_path-{{movieDB_id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+<input type="hidden" id="backdrop_path-{{movieDB_id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
+<div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
+  
+<div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
+  <img src="{{poster_path}}"
+   class="card-img-top img-fluid rounded-start center " alt="Use Vpn">
+
+   <div class="overlay"></div>
+   <div class="card-body center">
+    <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type movieDB_id}}">{{titleSnippet title_movie}}</a></h5>
+    <div class="form-check form-switch ">
+      <input
+      {{#if watched}}checked{{/if}}
+      class="form-check-input " type="checkbox" id="watched-{{movieDB_id}}"
+      onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)"> 
+      <label class="form-check-label main-font">Watched</label>
+    </div>
+    
+    <div class="form-check form-switch">
+      <input
+       {{#if bookmark}}checked{{/if}}
+        class="form-check-input"  type="checkbox" id="bookmark-{{movieDB_id}}"
+        onchange="updateInfo('{{movieDB_id}}',`{{title_movie}}`)">
+      <label class="form-check-label main-font">Bookmarked</label>
+    </div>
+    <span class="badge rounded-pill bg-success">{{media_type}}</span>
+    <p><small class="text-muted date-added">{{date_added}} added</small></p>
+    
+  </div>
+</div>
 
 </div> <!--End Col-->
 
@@ -70,7 +87,7 @@
 
 </div>
 
-  </script>
+</script>
 {% endverbatim %}
 </div> <!--End container-->
 

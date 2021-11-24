@@ -184,13 +184,16 @@
                >
               <label class="form-check-label">Dark Mode  <i class="bi bi-brightness-high"></i></label>
             </div>
-
+            
             <div class="form-check form-switch">
               <input
                 class="form-check-input" type="checkbox" id="include-adult-premision"
+          
+                onchange="updateProfileSetting()"
                >
               <label class="form-check-label">Show A rated filter in discover <strong>+18</strong></label>
             </div>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

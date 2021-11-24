@@ -4,6 +4,7 @@ from titleApp.models import Lists
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from accountsApp.models import profileInfo
 
 API_KEY = 'b807e5f9454227525cea99c772a74b7d'
 
@@ -12,7 +13,13 @@ API_KEY = 'b807e5f9454227525cea99c772a74b7d'
 def searchView(request):
     user = request.user
     lists = Lists.objects.filter(user=user)
-    return render(request, 'searchApp/search.html', {'lists': lists})
+    profile = profileInfo.objects.get(user=user.id)
+
+    context = {
+        'profile': profile,
+        'lists': lists
+    }
+    return render(request, 'searchApp/search.html', context)
 
 
 def detailMovie(request, media_type, movieDB_id):
