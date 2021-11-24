@@ -2,6 +2,54 @@
 {% load static %}
 {% load getInfoTag %}
 {% block title %}{{profile.user}}MyWatchList{% endblock title %}
-{% block header %}{% endblock header %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'api/slider.css' %}">
+{% endblock header %}
 {% block content %}
-<p>home</p>{%endblock%}
+
+<div class="C-carousel">
+    <div class="C-slide">
+        <h1 class="C-slide-title C-slide-title--h1">
+            <strong>MyWatchList</strong>, the place in which you can keep your movies marked in order to watch
+            in future.<br>
+            you can share and see your friend's watch list as well
+
+
+
+        </h1>
+    </div>
+    <div class="C-slide">
+        <div class="C-slide-title">
+            First you need to register<br>
+            <a href="{% url 'login' %}"><button class="btn btn-primary">Log in</button></a>
+            <a href="{% url 'signUp' %}"><button class="btn btn-primary">Sign up</button></a>
+
+        </div>
+    </div>
+    <div class="C-slide">
+        <div class="C-slide-title">
+           <a class="no-underline" href="{% url 'explore' %}">Explore</a><br>
+            find out your friend's watch list, import them if you like!
+        </div>
+    </div>
+    <div class="C-slide">
+        <div class="C-slide-title">
+            <a class="no-underline" href="{% url 'search' %}">Discover</a><br>
+            Search and find the movie trends
+        </div>
+    </div>
+    <div class="C-slide">
+        <div class="C-slide-title">
+            Setting,<br>
+            on the top right, your can edit your profile
+        </div>
+    </div>
+  </div>
+  
+  <div class="pen-controls">
+    <button class="js-change-carousel-direction" data-carousel-id="C-carousel-0">Change slider direction</button>
+  </div>
+
+
+  <script src="{% static 'api/babel.js' %}"></script>
+{%endblock%}

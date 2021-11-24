@@ -12,7 +12,7 @@ bookmarkImportBtn.addEventListener('click',()=>{
 
 watchedImportBtn.addEventListener('click',()=>{
     if(confirm('Are You sure you want to import '+friend_name+' movies?')){
-        importMovies('bookmark')  
+        importMovies('watched')  
      }})
 
 

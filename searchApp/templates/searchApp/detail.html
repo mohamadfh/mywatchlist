@@ -193,7 +193,7 @@ MyWatchList{% endblock title %}
                   <h5 class="card-title">{{#if title}}{{title}}{{else}}{{name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}{{#if first_air_date}}{{getYear first_air_date}}{{/if}}</h5>
                   <p class="card-text"><small class="text-muted">{{#each genres}}{{name}}, {{/each}}</small></p>
                   <p class="card-text">vote : {{vote_average}}</p>
-                  <p class="card-text">Director : <a href="">{{getDirector credits}}</a></p>
+                  <p class="card-text">Director : <a href="{{getDirectorUrl credits}}">{{getDirector credits}}</a></p>
                   {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
                   {{#if tagline}}<p class="card-text main-font big-font">{{tagline}}</p>{{/if}}
                   {{#if in_production}}<p class="card-text">{{#if in_production}}In production{{else}}Ended{{/if}}</p>{{/if}}
@@ -332,7 +332,7 @@ MyWatchList{% endblock title %}
         <div class="row g-3">
           <h1 class="display-6 text-center">Gallery <span class="main-font">({{getGalleryNumber images}})</span></h1>
         </div>
-        <div id="carouselExampleFade" class="carousel slide carousel-fade center" data-bs-ride="carousel" style="width: 60em;">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade center col-lg-9 col-md-10 col-sm-9" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="d-block w-100" alt="...">
@@ -379,10 +379,10 @@ MyWatchList{% endblock title %}
         <input type="hidden" value="{{known_for_department}}" id="known_for_department-id">
         <div class="col">
           {{#with external_ids}}
-        {{#if instagram_id}}  <a href="https://www.instagram.com/{{instagram_id}}"><i class="bi bi-instagram"></i></a>{{/if}}
-        {{#if facebook_id}} <a href="https://www.facebook.com/{{facebook_id}}"><i class="bi bi-facebook"></i></a>{{/if}}
-        {{#if twitter_id}} <a href="http://twitter.com/{{twitter_id}}"><i class="bi bi-twitter"></i></a>{{/if}}
-        {{#if imdb_id}} <a href="https://www.imdb.com/name/{{imdb_id}}"><img style="width: 1.4em;" src="/static/imdb.svg" alt=""></a>{{/if}}
+        {{#if instagram_id}}  <a href="https://www.instagram.com/{{instagram_id}}/"><i class="bi bi-instagram"></i></a>{{/if}}
+        {{#if facebook_id}} <a href="https://www.facebook.com/{{facebook_id}}/"><i class="bi bi-facebook"></i></a>{{/if}}
+        {{#if twitter_id}} <a href="http://twitter.com/{{twitter_id}}/"><i class="bi bi-twitter"></i></a>{{/if}}
+        {{#if imdb_id}} <a href="https://www.imdb.com/name/{{imdb_id}}/"><img style="width: 1.4em;" src="/static/imdb.svg" alt=""></a>{{/if}}
           {{/with}}
         </div>
       </div>

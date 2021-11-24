@@ -19,7 +19,7 @@ Handlebars.registerHelper('getDirectorUrl',function(credits){
         if(crew[i].job == "Director" || crew[i].job == "Series Director")
         Directorid = crew[i].id
     }
-    return Directorid
+    return '/search/person/'+Directorid
 })
 
 
