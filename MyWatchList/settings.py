@@ -27,7 +27,8 @@ DEBUG = True  # During development only
 
 if DEBUG:
     # Fake Email
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    #EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    pass
 
 ALLOWED_HOSTS = []
 
@@ -136,3 +137,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# eamil for password reset
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mywatchlisteamirh@gmail.com'
+EMAIL_HOST_PASSWORD = 'elaavshbhaygkrtf'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'MyWatchList'

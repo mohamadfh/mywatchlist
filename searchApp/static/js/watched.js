@@ -79,7 +79,7 @@ onlyTv.addEventListener('change',function(){
                 console.log(data.length)
                 
                 if(data.length==0){
-                    container.innerHTML = `<h1 class="display-6">You have no Bookmarks Yet ...</h1>`
+                    container.innerHTML = `<h1 class="display-6">You have not watched any movies Yet ...</h1>`
                 }
                 
                 
