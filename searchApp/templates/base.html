@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-<link rel="icon" type="image/png" href="{% static 'icon.png' %}"/>
+<link rel="icon" type="image/png" href="{% static 'ghost.png' %}"/>
     {% block header %}{% endblock header %}
       
     
@@ -52,7 +52,10 @@
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">WatchList</a>
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'ghost.png' %}" alt=""  height="30" class="d-inline-block align-text-top">
+          WatchList
+        </a>
         <button
           class="navbar-toggler"
           type="button"
