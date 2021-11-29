@@ -86,7 +86,7 @@
 <!--Show trending movies-->
 <div class="row row-col-auto">
   <link rel="stylesheet" href="{% static 'css/profile_card.css' %}">
-
+<h1> <p> Trending movies : </p></h1>
 {{#each results}}
 <input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
  <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
@@ -103,6 +103,10 @@
       <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">{{#if title}}{{title}}{{else}}{{name}}{{/if}}</a></h5>
       <div class="form-check form-switch ">
         <input
+        {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
         class="form-check-input " type="checkbox" id="watched-{{id}}"
         onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
         > 
@@ -112,6 +116,10 @@
       
       <div class="form-check form-switch">
         <input
+        {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
           class="form-check-input"  type="checkbox" id="bookmark-{{id}}"
           onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
           > 
@@ -257,6 +265,10 @@
               
                 <div class="form-check form-switch">
                   <input
+                  {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                   class="form-check-input" type="checkbox" id="watched-{{id}}"
                    onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
                    > 
@@ -269,6 +281,10 @@
                 
                 <div class="form-check form-switch">
                   <input
+                  {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                   class="form-check-input" type="checkbox" id="bookmark-{{id}}"
                   onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
                   >

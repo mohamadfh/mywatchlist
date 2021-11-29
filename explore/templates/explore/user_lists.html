@@ -41,7 +41,13 @@
                    <a href="{% url 'bookmark-friend' profile.user%}">Bookmarks</a> 
                   </h5>
                   <p class="card-text" style="font-size: 1.5em;">{{bookmark_count}} Movies</p>
-                  <button id="bookmark-import" class="btn btn-primary">Import movies</button>
+                  <button
+                  {% if user.is_authenticated %}
+                  {%else%}
+                  disabled
+                  {%endif%}
+
+                  id="bookmark-import" class="btn btn-primary">Import movies</button>
                 </div>
               </div>
             </div>
@@ -61,7 +67,12 @@
                        <a href="{% url 'watched-friend' profile.user %}">Watched</a> 
                       </h5>
                       <p class="card-text" style="font-size: 1.5em;">{{watched_count}} Movies</p>
-                      <button id="watched-import" class="btn btn-primary">Import movies</button>
+                      <button
+                      {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
+                      id="watched-import" class="btn btn-primary">Import movies</button>
 
                     </div>
                   </div>

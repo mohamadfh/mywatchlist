@@ -32,6 +32,7 @@
       
     <title>{% block title %}{% endblock title %}</title>
     <script src="https://unpkg.com/darkreader@4.9.40/darkreader.js"></script>
+    {% if user.is_authenticated %}
     {%getDarkModeInfo user.username as dark_mode%}
     {%if dark_mode%}
 <script>
@@ -43,13 +44,16 @@
 </script>
 
     {%endif%}
+    {%endif%}
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   </head>
 
   <body id="body" class="">
+    {% if user.is_authenticated %}
     <input type="hidden" id="username" value="{{user.id}}">
-
+{%endif%}
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">
@@ -74,7 +78,12 @@
           >
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"
-              ><i class="bi bi-film"></i> Bookmarks <span class="number-movies2">{%numberOfBookmarks user%}</span></a
+              ><i class="bi bi-film"></i> Bookmarks <span class="number-movies2">
+                {% if user.is_authenticated %}
+                {%numberOfBookmarks user%}
+                {%endif%}
+
+              </span></a
             >
           </li>
           <li class="nav-item">
@@ -83,12 +92,17 @@
             
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'explore' %}"
-                >Explore</a
+                >Friends</a
               >
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'watched' %}">Watcheds <span class="number-movies2">{%numberOfWatched user%}</span></a>
+              <a class="nav-link" href="{% url 'watched' %}">Watcheds <span class="number-movies2">
+                {% if user.is_authenticated %}
+                {%numberOfWatched user%}
+                {%endif%}
+
+              </span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'website_rec' %}">Websites</a>

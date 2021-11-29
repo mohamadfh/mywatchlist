@@ -9,16 +9,18 @@ from accountsApp.models import profileInfo
 API_KEY = 'b807e5f9454227525cea99c772a74b7d'
 
 
-@login_required(login_url='/account/')
+# @login_required(login_url='/account/')
 def searchView(request):
     user = request.user
-    lists = Lists.objects.filter(user=user)
-    profile = profileInfo.objects.get(user=user.id)
+    context = {}
+    try:
+        lists = Lists.objects.filter(user=user)
+        profile = profileInfo.objects.get(user=user.id)
+        context['profile'] = profile
+        context['lists'] = lists
+    except:
+        pass
 
-    context = {
-        'profile': profile,
-        'lists': lists
-    }
     return render(request, 'searchApp/search.html', context)
 
 

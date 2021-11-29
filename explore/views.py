@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from titleApp.models import TitleMovie
 
 
-@login_required(login_url='/account/')
+# @login_required(login_url='/account/')
 def exploreView(request, *args, **kwargs):
     context = {}
     if request.method == "GET" and request.GET.get("q") != None:

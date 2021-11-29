@@ -51,7 +51,7 @@ MyWatchList{% endblock title %}
                <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
                  
                <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
-                <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+                <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w300/{{poster_path}}"
                   class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
                   loading='lazy'></a>
                
@@ -63,7 +63,10 @@ MyWatchList{% endblock title %}
                     </a></h5>
                    <div class="form-check form-switch ">
                      <input
-                     
+                     {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                      class="form-check-input " type="checkbox" id="watched-cast-{{id}}"
                      onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Watched</label>
@@ -71,7 +74,10 @@ MyWatchList{% endblock title %}
                    
                    <div class="form-check form-switch">
                      <input
-                      
+                     {% if user.is_authenticated %}
+                     {%else%}
+                     disabled
+                     {%endif%}
                        class="form-check-input"  type="checkbox" id="bookmark-cast-{{id}}"
                        onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Bookmarked</label>
@@ -127,7 +133,10 @@ MyWatchList{% endblock title %}
                     
                    <div class="form-check form-switch ">
                      <input
-                     
+                     {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                      class="form-check-input " type="checkbox" id="watched-crew-{{id}}"
                      onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Watched</label>
@@ -135,7 +144,10 @@ MyWatchList{% endblock title %}
                    
                    <div class="form-check form-switch">
                      <input
-                      
+                     {% if user.is_authenticated %}
+                     {%else%}
+                     disabled
+                     {%endif%}
                        class="form-check-input"  type="checkbox" id="bookmark-crew-{{id}}"
                        onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Bookmarked</label>
@@ -210,6 +222,10 @@ MyWatchList{% endblock title %}
                   <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
                   <div class="form-check form-switch">
                     <input
+                    {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                     class="form-check-input" type="checkbox" id="watched-{{id}}"
                      onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
                      > 
@@ -218,6 +234,10 @@ MyWatchList{% endblock title %}
                   
                   <div class="form-check form-switch">
                     <input
+                    {% if user.is_authenticated %}
+                      {%else%}
+                      disabled
+                      {%endif%}
                     class="form-check-input" type="checkbox" id="bookmark-{{id}}"
                     onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
                     >
