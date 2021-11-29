@@ -126,3 +126,10 @@ media-type {
 
     font-size: 6em;
 }
+
+
+.scroll-add {
+
+    height: 25em;
+    overflow-y: auto;
+}

@@ -41,7 +41,7 @@ MyWatchList{% endblock title %}
           <div class="accordion-body">
            
 
-            <div class="row row-col-4 g-3">
+            <div class="row row-col-4 g-3 ">
               {{#each cast}}
               {{#if poster_path}}
               {{getInfoCast id}}
@@ -106,7 +106,7 @@ MyWatchList{% endblock title %}
           </button>
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
+          <div class="accordion-body scroll-add">
 
             <div class="row row-col-4 g-3">
               {{#each crew}}
@@ -284,7 +284,7 @@ MyWatchList{% endblock title %}
       </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">
+      <div class="accordion-body scroll-add">
         <!--Row4 for cast member-->
 <div class="row g-3 row-col-auto">
   {{#if credits}}
@@ -317,7 +317,7 @@ MyWatchList{% endblock title %}
       </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">
+      <div class="accordion-body scroll-add">
 <div class="row g-3 row-col-auto">
   {{#if credits}}
   {{#with credits}}
