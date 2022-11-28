@@ -17,6 +17,7 @@ function getCookie(name) {
 var csrftoken = getCookie('csrftoken');
 
 
+
 function updateInfo(movieDB_id,name){
     let req = new XMLHttpRequest();
     req.open('GET',`${BASE_URL}get-movie-by-moviedbid/${movieDB_id}?format=json`,true)
@@ -518,4 +519,19 @@ Handlebars.registerHelper('getDetailUrl',function(media_type,movieDB_id){
             }
             req.send()
           
+        }
+
+ 
+        function addList(movieDB_id,name){
+            // addListData.push(name)
+            // let listData = document.getElementById("list-movies")
+            // textNode= `
+            // <div class="row">
+            //     <div class="col align-self-start">
+            //       One of three columns
+            //     </div>
+            // </div>
+            // `
+            // listData.appendChild(textnode);
+            console.log('addListData')
         }

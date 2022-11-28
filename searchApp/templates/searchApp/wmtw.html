@@ -1,0 +1,375 @@
+{% extends 'base.html' %} 
+{% block title %}Search{% endblock title %} 
+{% load static %} {% load getInfoTag %} {% block header %}
+<link rel="stylesheet" href="{% static 'css/wmtw.css' %}" />
+
+{% endblock header %}
+ {% block content %} 
+ {% verbatim %}
+<div class="container-fluid">
+  <div class="row">
+    <div id="list-movies" class="col-2">
+
+
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+        rel="stylesheet"
+      />
+      <button style="margin-top:1rem;  margin-bottom: 1rem;" class="tell-btn" type="button" id="tell" onclick="tell()" data-toggle="modal" data-target="#myModal">Tell Me!</button>
+    </div>
+    <div class="col-10">
+      <div class="col-md-10 center-card">
+        <div class="card-body row no-gutters align-items-center center-card">
+          <div class="col-auto">
+            <i class="fas fa-search h4 text-body"></i>
+          </div>
+
+          <div class="col">
+            <input
+              autocomplete="on"
+              id="search-field"
+              class="form-control form-control-lg form-control-borderless"
+              type="text"
+              spellcheck="true"
+              placeholder="Search movies & shows"
+            />
+          </div>
+          <!--end of col-->
+          <div class="col-auto">
+            <button
+              id="btn-search"
+              class="btn btn-lg btn-primary"
+              type="button"
+            >
+              Search
+            </button>
+          </div>
+          <!--end of col-->
+
+          <div class="row">
+            <div class="col-auto">
+              <div  style="display: none" class="form-check form-switch">
+                <input
+                  {%
+                  endverbatim
+                  %}
+                  {%if
+                  profile.aRatedFilter%}
+                  {%else%}
+                  disabled
+                  {%endif%}
+                  {%
+                  verbatim
+                  %}
+                  class="form-check-input"
+                  type="checkbox"
+                  id="include-adult"
+                />
+                <label class="form-check-label">Include A Retad</label>
+              </div>
+            </div>
+          </div>
+          <!--End Col-->
+
+          <div id="loading-gif" style="display: none">
+            <div class="wrapper">
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="shadow"></div>
+              <div class="shadow"></div>
+              <div class="shadow"></div>
+              <span>Loading</span>
+            </div>
+          </div>
+          <div id="best-result"></div>
+          <div id="others"></div>
+        </div>
+        {% endverbatim %}
+
+        <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
+        {% verbatim %}
+        <script id="titleTemplateTrending" type="text/x-handlebars-template">
+          <!--Show trending movies-->
+
+          <link rel="stylesheet" href="{% static 'css/profile_card.css' %}" />
+          <div class="row row-col-auto">
+
+          </div>
+        </script>
+
+        <script id="titleTemplate" type="text/x-handlebars-template">
+
+
+              <div class="row row-col-auto">
+
+
+              {{#each results}}
+
+
+          {{#if (mediaTypeIsPerson media_type)}}
+
+          {{#if profile_path}}
+
+
+          <div name="person-card-display" class="col-xs-12 col-sm-6 col-md-12 col-lg-6" style="display: none;">
+            <div class="card mb-3 center-card card-hover" style="max-width: 600px;">
+              <div class="row g-0">
+                <div class="col-md-4" style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <a  href="{{getDetailUrl media_type id}}">
+
+                    <img src="https://image.tmdb.org/t/p/w500/{{profile_path}}"
+                   class="img-fluid rounded-start center rounded" alt="{{name}}" loading="lazy">
+
+                   </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    {{#if media_type}}
+                    <img class="media-type" src="{{getMedia_type media_type}}" alt="...">
+                    {{/if}}
+
+                    <h5 class="card-title">
+                      {{#if title}}
+                      {{title}}
+                      {{else}}
+                      {{name}}
+                      {{/if}}
+                       <small class="text-muted">{{#if release_date}}{{getYear release_date}}{{/if}}</small>
+                    </h5>
+                    {{#if known_for_department}}
+                    <p class="card-text"><small class="main-font">{{known_for_department}}</small></p>
+                    {{/if}}
+                    {{#if vote_average}}
+                    <p class="card-text"><small class="main-font">Rate : {{vote_average}}</small></p>
+                    {{/if}}
+
+                   <!--Show known for movies-->
+                    {{#if known_for }}
+                    <p class="card-text main-font">known for:</p>
+          <div class="row row-col-auto">
+                    {{#each known_for}}
+
+                    <div class="card" style="max-width: 6rem; object-fit: cover;">
+                      <a  target="_blank" href="{{getDetailUrl media_type id}}">
+                      <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+                       class="card-img-top rounded" alt="{{title}}">
+                       </a>
+                    </div>
+
+
+
+                    {{/each}}
+           </div> <!--End row-->
+
+                   {{/if}}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {{/if}} <!--End if profile_path-->
+          {{/if}}
+
+
+
+
+                {{#if poster_path}}
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-card">
+                  <div class="card mb-3 center-card card-hover">
+                    <div class="row g-0">
+                      <div class="col-md-4 wmtw">
+                        <a  target="_blank" href="{{getDetailUrl media_type id}}">
+                          <input type="hidden" id="media_type-{{id}}" value="{{media_type}}">
+                          <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+                          <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/original/{{backdrop_path}}">
+
+                          <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+                         class="img-fluid rounded-start center wmtw" alt="{{title}}" loading="lazy">
+
+                         </a>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          {{#if media_type}}
+                          <img class="media-type" src="{{getMedia_type media_type}}" alt="...">
+                          {{/if}}
+
+                          <h5 class="card-title">
+                            {{#if title}}
+                            {{title}}
+                            {{else}}
+                            {{name}}
+                            {{/if}}
+                             <small class="text-muted">{{#if release_date}}{{getYear release_date}}{{/if}}</small>
+                          </h5>
+                          {{#if first_air_date}}
+                          <p class="card-text"><small class="main-font">First Episode {{getYear first_air_date}}</small></p>
+                          {{/if}}
+                          {{#if vote_average}}
+
+                          {{/if}}
+
+
+
+
+
+
+                          {{getInfo id title}}
+
+
+
+                            
+
+                            <div class="form-check form-switch">
+                            <input
+                            onchange='addList("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)'
+                            class="form-check-input" type="checkbox" id="add-{{id}}"
+                           
+                            >
+                            <label class="form-check-label main-font">Add</label>
+                          </div>
+                          <link rel="preconnect" href="https://fonts.gstatic.com">
+                          <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+
+
+
+
+
+                          <div class="card text-bg-dark">
+                              <img src="https://image.tmdb.org/t/p/original/{{backdrop_path}}" class="card-img" alt="...">
+                              <div class="card-img-overlay">
+
+                              </div>
+                            </div>
+
+
+
+
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+                {{/if}}
+              {{/each}}
+              </div> <!--End of Row-->
+
+              <!-- If there was more pages -->
+
+
+                <div class="row">
+                  <div style="margin: 2em;">
+                  <div class="col-md-6 center-btn">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    {{#if (isThereLastPage page)}}
+                    <!-- Perevius page -->
+                    <button onclick='getLastPage( "{{page}}" )' type="button" class="btn btn-primary">Previous</button>
+                    {{/if}}
+                    {{#if (getPages total_pages page)}}
+                    <label class="btn btn-outline-primary">Page {{page}}</label>
+
+                    <!-- Next page -->
+                    <button onclick='getNextPage( "{{page}}" )' type="button" class="btn btn-primary">Next</button>
+                  </div>
+                </div> <!--End col-->
+             </div>
+             </div> <!--End of Row-->
+
+              {{/if}}
+        </script>
+        {% endverbatim %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="{% static 'js/search.js' %}"></script>
+      </div>
+    </div>
+    
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="myModal">&times;</button>
+          <h4 class="modal-title">!! Your Are Gonna Watch : !!</h4>
+        </div>
+        <div id="modal-movie" class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="myModal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+    <script type="text/javascript">
+        addListData = []
+        function addList(movieDB_id,name){
+            let inputValue = document.getElementById('add-'+movieDB_id).checked
+            let posterUrl = document.getElementById('poster_path-'+movieDB_id).value
+            addListData.push(movieDB_id)
+            if (inputValue==true){
+                document.getElementById("tell").disabled = false
+             
+             let listData = document.getElementById("list-movies")
+             textNode= `
+             <div class="card mb-3 center no-border" style=" border: none;">
+                <div class="row g-0">
+                  <div class="col-md-6 center">
+                   
+                
+                    <img src="${posterUrl}" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  
+                </div>
+              </div>
+            `
+            listData.innerHTML += textNode}
+            
+        }
+
+        function tell(){
+            
+            let length = addListData.length
+            console.log(length);
+            let randomNumber = Math.floor(Math.random() * length);
+            console.log(randomNumber);
+            
+            let posterUrl = document.getElementById('poster_path-'+addListData[randomNumber]).value
+            $("#myModal").modal('show');
+            let theModal = document.getElementById('modal-movie');
+            textNode= `
+             <div class="card mb-3 center no-border" style="max-width: 540px;  border: none;">
+                <div class="row g-0">
+                  <div class="col-md-9 center">
+                    <img src="${posterUrl}" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  
+                </div>
+              </div>
+            `
+            theModal.innerHTML += textNode
+
+        }
+        
+      </script>
+    {% endblock content %}
+  </div>
+</div>

@@ -95,6 +95,12 @@
                 >Friends</a
               >
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'wmtw' %}"
+                >Which Movie To Watch</a
+              >
+            </li>
             
             <li class="nav-item">
               <a class="nav-link" href="{% url 'watched' %}">Watcheds <span class="number-movies2">
@@ -232,13 +238,13 @@
  <script src="{% static 'js/profile_info.js' %}"></script>
 <script src="{% static 'js/Handlebars_helper.js' %}"></script>
 
-  <footer class="blog-footer text-center">
+  {% comment %} <footer class="blog-footer text-center">
     <p class="text-center">© 2021 eamirh</p>
     <a href="https://github.com/eamirhn/MyWatchList"><i class="bi bi-github"></i></a>
      <a class="no-underline" href="https://www.linkedin.com/in/amir-hossein-enayati/"><i class="bi bi-linkedin"></i></a>
       <a href="https://t.me/eamirh"><i class="bi bi-telegram"></i></a>
        | API via  <a href="https://www.themoviedb.org/"><img style="width: 4.5em;" src="{% static 'moviedb.svg' %}" alt="moviedb-logo"></a>    
-  </footer>
+  </footer> {% endcomment %}
   </body>
 
  

@@ -44,3 +44,7 @@ def watchedView(request):
 
 def website_rec(request):
     return render(request, 'searchApp/website_rec.html')
+
+
+def wmtwView(request):
+    return render(request,'searchApp/wmtw.html')

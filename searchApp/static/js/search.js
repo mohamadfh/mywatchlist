@@ -284,3 +284,5 @@ else{
     bestResultContainer.innerHTML = generetedHTML;
    
     };
+
+
