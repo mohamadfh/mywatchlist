@@ -207,6 +207,8 @@ MyWatchList{% endblock title %}
                   <h5 class="card-title">{{#if title}}{{title}}{{else}}{{name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}{{#if first_air_date}}{{getYear first_air_date}}{{/if}}</h5>
                   <p class="card-text"><small class="text-muted">{{#each genres}}{{name}}, {{/each}}</small></p>
                   <p class="card-text">vote : {{vote_average}}</p>
+                   {{#if wpid}} <p class="card-text"><a href="https://en.wikipedia.org/?curid={{wpid}}">Wikipedia Page</a></p>{{/if}}
+
                   <p class="card-text">Director : <a href="{{getDirectorUrl credits}}">{{getDirector credits}}</a></p>
                   {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
                   {{#if tagline}}<p class="card-text main-font big-font">{{tagline}}</p>{{/if}}
@@ -381,6 +383,27 @@ MyWatchList{% endblock title %}
       </div>
     </div>
   </div>
+     {{#if ytcomments}}
+      <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        Comments
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body scroll-add">
+          <div class="row g-3 row-col-auto">
+            {{#each ytcomments}}
+    <div class="card ">
+        <p class="card-text">{{snippet.topLevelComment.snippet.textOriginal}}</p>
+        <p><small class="text-muted">{{snippet.topLevelComment.snippet.updatedAt}}</small></p>
+      </div>
+            {{/each}}
+          </div>
+      </div>
+    </div>
+  </div>
+    {{/if}}
 </div>
 
 

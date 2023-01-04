@@ -1,3 +1,4 @@
+
 """
 Django settings for MyWatchList project.
 
@@ -30,7 +31,7 @@ if DEBUG:
     #EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     pass
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -131,6 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT =  "/home/allyellow/collectedstatic"
 STATIC_URL = '/static/'
 
 # Default primary key field type
