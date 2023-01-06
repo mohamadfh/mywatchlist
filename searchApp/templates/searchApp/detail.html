@@ -21,9 +21,9 @@ MyWatchList{% endblock title %}
       <span>Loading</span>
     </div>
   </div>
-  
-<div class="container" id="container-detail"></div> 
-<div class="container" id="container-movie-person"></div> 
+
+<div class="container" id="container-detail"></div>
+<div class="container" id="container-movie-person"></div>
 
   <script src="{% static 'js/handlebars-v4.7.7.js' %}"></script>
   {% verbatim %}
@@ -39,7 +39,7 @@ MyWatchList{% endblock title %}
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-           
+
 
             <div class="row row-col-4 g-3 ">
               {{#each cast}}
@@ -49,17 +49,17 @@ MyWatchList{% endblock title %}
               <input type="hidden" id="poster_path-cast-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
               <input type="hidden" id="backdrop_path-cast-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
                <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
-                 
+
                <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
                 <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w300/{{poster_path}}"
                   class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
                   loading='lazy'></a>
-               
+
                   <div class="overlay"></div>
                   <div class="card-body center card-body2">
                    <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
                     {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}}
-                     
+
                     </a></h5>
                    <div class="form-check form-switch ">
                      <input
@@ -71,7 +71,7 @@ MyWatchList{% endblock title %}
                      onchange="updateInfoCast('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Watched</label>
                    </div>
-                   
+
                    <div class="form-check form-switch">
                      <input
                      {% if user.is_authenticated %}
@@ -85,11 +85,11 @@ MyWatchList{% endblock title %}
                    <span class="badge rounded-pill bg-success">{{media_type}}</span>
 
                    <p><small class="text-muted date-added">{{#if release_date}}{{getYear release_date}}{{/if}}</small></p>
-                   
+
                  </div>
                </div>
-             
-             </div> <!--End Col-->  
+
+             </div> <!--End Col-->
              {{/if}}
                {{/each}}
               </div>
@@ -98,7 +98,7 @@ MyWatchList{% endblock title %}
           </div>
         </div>
       </div>
-      
+
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -111,26 +111,26 @@ MyWatchList{% endblock title %}
             <div class="row row-col-4 g-3">
               {{#each crew}}
               {{#if poster_path}}
-              
+
               {{#if (known_for_departmentFilter job)}}
               {{getInfoCrew id}}
               <input type="hidden" id="media_type-crew-{{id}}" value="{{media_type}}">
               <input type="hidden" id="poster_path-crew-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
               <input type="hidden" id="backdrop_path-crew-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
                <div class="col-xxs-6 col-sm-6 col-md-4 col-lg-2 only-{{media_type}}">
-                 
+
                <div class="card mb-4 sm-6 xs-6 center card-hover" style="max-width: 18rem;">
                 <a href="{{getDetailUrl media_type id}}"> <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
                   class="card-img-top img-fluid rounded-start center " alt="Use Vpn"
                   loading='lazy'></a>
-               
+
                   <div class="overlay"></div>
                   <div class="card-body center card-body2">
                    <h5 class="card-title title-profile"><a class="no-underline" href="{{getDetailUrl media_type id}}">
                     {{#if title}}{{titleSnippet title}}{{else}}{{titleSnippet name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}
-                     
+
                     </a></h5>
-                    
+
                    <div class="form-check form-switch ">
                      <input
                      {% if user.is_authenticated %}
@@ -141,7 +141,7 @@ MyWatchList{% endblock title %}
                      onchange="updateInfoCrew('{{id}}',`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)">
                      <label class="form-check-label main-font">Watched</label>
                    </div>
-                   
+
                    <div class="form-check form-switch">
                      <input
                      {% if user.is_authenticated %}
@@ -155,17 +155,17 @@ MyWatchList{% endblock title %}
                    <span class="badge rounded-pill bg-success">{{media_type}}</span>
 
                    <p><small class="text-muted date-added">{{#if job}}{{job}}{{/if}}</small></p>
-                   
+
                  </div>
                </div>
-             
-             </div> <!--End Col-->  
+
+             </div> <!--End Col-->
              {{/if}} <!--End if known_for_departmentFilter-->
              {{/if}}
-             
+
                {{/each}}
               </div>
-             
+
 
 
 
@@ -173,15 +173,15 @@ MyWatchList{% endblock title %}
 
 
           </div>
-          
+
         </div>
-       
+
       </div>
-      
+
     </div>
 
     <!--End accordion-->
-   
+
   </script>
     <!--END!! render persons credit movies-->
 
@@ -190,15 +190,15 @@ MyWatchList{% endblock title %}
 
     {{getInfo id}}
     <div class="row g-4">
-       
+
       <div class="card mb-3">
-        
+
         <div class="card-body g-4">
           <!--Start inside card-->
           <div class="card mb-12" id="card-inside">
             <div class="row no-gutters">
               <div class="col-md-4">
-                
+
               <a href="{{#if homepage}}{{homepage}}{{/if}}"><img class="poster" src="https://image.tmdb.org/t/p/original/{{poster_path}}"
                  alt="{{#if title}}{{title}}{{else}}{{name}}{{/if}}"></a>
               </div>
@@ -206,8 +206,10 @@ MyWatchList{% endblock title %}
                 <div class="card-body">
                   <h5 class="card-title">{{#if title}}{{title}}{{else}}{{name}}{{/if}} {{#if release_date}}{{getYear release_date}}{{/if}}{{#if first_air_date}}{{getYear first_air_date}}{{/if}}</h5>
                   <p class="card-text"><small class="text-muted">{{#each genres}}{{name}}, {{/each}}</small></p>
-                  <p class="card-text">vote : {{vote_average}}</p>
                    {{#if wpid}} <p class="card-text"><a href="https://en.wikipedia.org/?curid={{wpid}}">Wikipedia Page</a></p>{{/if}}
+
+                   {{#if ytvidid}} <p class="card-text"><a href="https://www.youtube.com/watch?v={{ytvidid}}">Watch Trailer</a></p>{{/if}}
+                  <p class="card-text">vote : {{vote_average}}</p>
 
                   <p class="card-text">Director : <a href="{{getDirectorUrl credits}}">{{getDirector credits}}</a></p>
                   {{#if overview}}<p class="card-text">{{overview}}</p>{{/if}}
@@ -219,7 +221,7 @@ MyWatchList{% endblock title %}
                   {{#if number_of_seasons}}<p class="card-text">{{number_of_seasons}} season</p>{{/if}}
 
 
-                 
+
                   <input type="hidden" id="poster_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{poster_path}}">
                   <input type="hidden" id="backdrop_path-{{id}}" value="https://image.tmdb.org/t/p/w500/{{backdrop_path}}">
                   <div class="form-check form-switch">
@@ -229,11 +231,11 @@ MyWatchList{% endblock title %}
                       disabled
                       {%endif%}
                     class="form-check-input" type="checkbox" id="watched-{{id}}"
-                     onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
-                     > 
+                     onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)'
+                     >
                     <label class="form-check-label  main-font">Watched</label>
                   </div>
-                  
+
                   <div class="form-check form-switch">
                     <input
                     {% if user.is_authenticated %}
@@ -241,7 +243,7 @@ MyWatchList{% endblock title %}
                       disabled
                       {%endif%}
                     class="form-check-input" type="checkbox" id="bookmark-{{id}}"
-                    onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)' 
+                    onchange='updateInfo("{{id}}",`{{#if title}}{{title}}{{else}}{{name}}{{/if}}`)'
                     >
                     <label class="form-check-label  main-font">Bookmarked</label>
                   </div>
@@ -378,7 +380,7 @@ MyWatchList{% endblock title %}
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        
+
         {{/if}}
       </div>
     </div>
@@ -396,7 +398,7 @@ MyWatchList{% endblock title %}
             {{#each ytcomments}}
     <div class="card ">
         <p class="card-text">{{snippet.topLevelComment.snippet.textOriginal}}</p>
-        <p><small class="text-muted">{{snippet.topLevelComment.snippet.updatedAt}}</small></p>
+        <p><small class="text-muted">&#128077;{{snippet.topLevelComment.snippet.likeCount}}</small></p>
       </div>
             {{/each}}
           </div>
